@@ -345,6 +345,8 @@ $(function () {
                 });
                 $('.preview-image').hide();
 
+                location.reload();
+
             },  
             error: function(jqXHR, textStatus, errorThrown){                                        
                 //console.log("The following error occured: " + textStatus, errorThrown);                                                       
