@@ -1,8 +1,7 @@
-
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<?php
 		global $current_user;
-		get_currentuserinfo();                      
+		get_currentuserinfo();        
 
 		$args = array(
 		    'author'        =>  $current_user->ID, 

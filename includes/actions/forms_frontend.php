@@ -364,7 +364,155 @@ if( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] ) &&  $_POS
             update_post_meta( $pid, $prefix.'foto_sessao'.$i , $foto_sessaoId[$i]);
          }
     }
+        
+     /*
+     * SESSAO
+     */
+    
+    //METABOXs
+    $data =  $_POST['data'];
+    $horario =  $_POST['horario'];
+    $sessao_local =  $_POST['sessao_local'];   
+    $logradouro =  $_POST['logradouro'];
+    $numero =  $_POST['numero'];
+    $complemento =  $_POST['complemento'];
+    $cep =  $_POST['cep'];
+    $cidade =  $_POST['cidade'];
+    $bairro =  $_POST['bairro'];
+    $estado =  $_POST['estado'];
+    $requisito =  $_POST['requisito'];
+    $cineclube_nome =  $_POST['cineclube_nome'];
+    $cineclube_id =  $_POST['cineclube_id'];
 
+    //FOR FILMES
+    for($i = 1; $i <= 16; $i++){
+        $nome_filme[$i] =  $_POST['nome_filme'.$i];
+        $nome_original[$i] =  $_POST['nome_original'.$i];
+        $direcao[$i] =  $_POST['direcao'.$i];
+        $ano[$i] =  $_POST['ano'.$i];
+        $pais[$i] =  $_POST['pais'.$i];
+        $idioma[$i] =  $_POST['idioma'.$i];
+        $sinopse[$i] =  trim(nl2br($_POST['sinopse'.$i]));
+        $leg_dub[$i] =  $_POST['leg_dub'.$i];
+        $classificacao[$i] =  $_POST['classificacao'.$i];
+    }
+    
+    $havera_debate =  $_POST['havera_debate'];
+
+    //FOR DEBATEDORES
+    for($i = 1; $i <= 5; $i++){
+        $nome_debatedor[$i] =  $_POST['nome_debatedor'.$i];
+        $foto_debatedor[$i] =  $_POST['foto_debatedor'.$i];
+        $bibliografia_debatedor[$i] =  trim(nl2br($_POST['bibliografia_debatedor'.$i]));
+    }
+    
+    //Update Thumbanil
+    if ( !empty( $_POST['thumb-sessao'] ) ){
+        $foto_eventoId = upload_image($_POST['thumb-sessao']);
+        set_post_thumbnail( $pid,  $foto_eventoId );
+    }
+
+    //FOR DEBATEDORES FOTO
+    for($i = 1; $i <= 5; $i++){
+        if ( !empty( $_POST['foto_debatedor'.$i] ) ){
+            $foto_debatedorId[$i] = upload_image($_POST['foto_debatedor'.$i]);
+        }
+    }
+
+    //Update MetaBoxes 
+    $prefix ='ss_';
+    update_post_meta( $pid, $prefix.'data', $data );
+    update_post_meta( $pid, $prefix.'horario', $horario );
+    update_post_meta( $pid, $prefix.'sessao_local', $sessao_local );
+    update_post_meta( $pid, $prefix.'logradouro', $logradouro );
+    update_post_meta( $pid, $prefix.'numero', $numero );
+    update_post_meta( $pid, $prefix.'complemento', $complemento );
+    update_post_meta( $pid, $prefix.'bairro', $bairro );
+    update_post_meta( $pid, $prefix.'cidade', $cidade );
+    update_post_meta( $pid, $prefix.'estado', $estado);
+    update_post_meta( $pid, $prefix.'cep', $cep );
+    update_post_meta( $pid, $prefix.'requisito', $requisito );
+    update_post_meta( $pid, $prefix.'cineclube_nome', $cineclube_nome );
+    update_post_meta( $pid, $prefix.'cineclube_id', $cineclube_id );
+
+    //FOR FILMES
+    for($i = 1; $i <= 16; $i++){
+        update_post_meta( $pid, $prefix.'nome_filme'.$i , $nome_filme[$i] );
+        update_post_meta( $pid, $prefix.'nome_original'.$i , $nome_original[$i] );
+        update_post_meta( $pid, $prefix.'direcao'.$i , $direcao[$i] );
+        update_post_meta( $pid, $prefix.'ano'.$i , $ano[$i] );
+        update_post_meta( $pid, $prefix.'pais'.$i , $pais[$i] );
+        update_post_meta( $pid, $prefix.'idioma'.$i , $idioma[$i] );
+        update_post_meta( $pid, $prefix.'sinopse'.$i , $sinopse[$i] );
+        update_post_meta( $pid, $prefix.'classificacao'.$i , $classificacao[$i] );
+
+        //Add Legendado  CheckBox
+        $leg_dub =  $_POST['leg_dub'.$i];
+        for($c = 0 ; $c < count($leg_dub); $c++){
+           add_post_meta( $pid, $prefix.'leg_dub'.$i,  $leg_dub[$c]);
+        }
+
+    }
+    
+    update_post_meta( $pid, $prefix.'havera_debate', $havera_debate );
+
+    //FOR DEBATEDORES
+    for($i = 1; $i <= 5; $i++){
+        update_post_meta( $pid, $prefix.'nome_debatedor'.$i , $nome_debatedor[$i] );
+        update_post_meta( $pid, $prefix.'foto_debatedor'.$i , $foto_debatedorId[$i]);
+        update_post_meta( $pid, $prefix.'bibliografia_debatedor'.$i , $bibliografia_debatedor[$i] );
+    }
+
+
+
+
+    /*
+     * CINECLUBE
+     */
+    //Campos Post
+    $title =  $_POST['title'];
+    $nome_ceu =  $_POST['nome_ceu'];
+    $logradouro =  $_POST['logradouro'];
+    $numero =  $_POST['numero'];
+    $complemento =  $_POST['complemento'];
+    $cep =  $_POST['cep'];
+    $cidade =  $_POST['cidade'];
+    $bairro =  $_POST['bairro'];
+    $estado =  $_POST['estado'];
+    $capacidade =  $_POST['capacidade'];
+    $email_prin =  $_POST['email_prin'];
+    $email_secun =  $_POST['email_secun'];
+    $telefone_prin =  $_POST['telefone_prin'];
+    $telefone_secun =  $_POST['telefone_secun'];
+    $facebook =  $_POST['facebook'];
+    $twitter =  $_POST['twitter'];
+    $instagram =  $_POST['instagram'];
+    $arquivos =  $_POST['arquivos'];
+    $biografia =  trim(nl2br($_POST['biografia']));
+    $tags = $_POST['tags'];
+    $thumb_infos = $_POST['thumb_infos'];
+
+    update_post_meta( $pid, $prefix.'nome_ceu', $nome_ceu );
+    update_post_meta( $pid, $prefix.'logradouro', $logradouro );
+    update_post_meta( $pid, $prefix.'numero', $numero );
+    update_post_meta( $pid, $prefix.'complemento', $complemento );
+    update_post_meta( $pid, $prefix.'bairro', $bairro );
+    update_post_meta( $pid, $prefix.'cidade', $cidade );
+    update_post_meta( $pid, $prefix.'estado', $estado);
+    update_post_meta( $pid, $prefix.'cep', $cep );
+    update_post_meta( $pid, $prefix.'capacidade', $capacidade );
+    update_post_meta( $pid, $prefix.'email_prin', $email_prin );
+    update_post_meta( $pid, $prefix.'email_secun', $email_secun );
+    update_post_meta( $pid, $prefix.'telefone_prin', $telefone_prin );
+    update_post_meta( $pid, $prefix.'telefone_secun', $telefone_secun );
+    update_post_meta( $pid, $prefix.'facebook', $facebook );
+    update_post_meta( $pid, $prefix.'twitter', $twitter );
+    update_post_meta( $pid, $prefix.'instagram', $instagram );
+    update_post_meta( $pid, $prefix.'arquivos', $arquivos );
+    update_post_meta( $pid, $prefix.'biografia', $biografia );
+
+    $imageId = upload_image( $thumb_infos );
+    set_post_thumbnail( $pid,  $imageId );
 
 
 }
