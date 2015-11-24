@@ -189,7 +189,6 @@ if( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] ) &&  $_POS
         $pais[$i] =  $_POST['pais'.$i];
         $idioma[$i] =  $_POST['idioma'.$i];
         $sinopse[$i] =  trim(nl2br($_POST['sinopse'.$i]));
-        $leg_dub[$i] =  $_POST['leg_dub'.$i];
         $classificacao[$i] =  $_POST['classificacao'.$i];
     }
     
@@ -240,10 +239,7 @@ if( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] ) &&  $_POS
     update_post_meta( $pid, $prefix.'requisito', $requisito );
     update_post_meta( $pid, $prefix.'cineclube_nome', $cineclube_nome );
     update_post_meta( $pid, $prefix.'cineclube_id', $cineclube_id );
-
-
   
-    
     
     //FOR FILMES
     for($i = 1; $i <= 16; $i++){
@@ -257,10 +253,11 @@ if( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] ) &&  $_POS
         update_post_meta( $pid, $prefix.'classificacao'.$i , $classificacao[$i] );
 
         //Add Legendado  CheckBox
-        $leg_dub =  $_POST['leg_dub'.$i];
-        for($c = 0 ; $c < count($leg_dub); $c++){
-           add_post_meta( $pid, $prefix.'leg_dub'.$i,  $leg_dub[$c]);
-        }
+        $legendado_dublado =  $_POST['leg_dub'.$i];
+        for($ld = 0 ; $ld < count( $legendado_dublado ); $ld++){
+           add_post_meta( $pid, $prefix.'leg_dub'.$i,  $legendado_dublado[$ld]);
+        }   
+
 
     }
     
@@ -447,10 +444,10 @@ if( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] ) &&  $_POS
         update_post_meta( $pid, $prefix.'classificacao'.$i , $classificacao[$i] );
 
         //Add Legendado  CheckBox
-        $leg_dub =  $_POST['leg_dub'.$i];
-        for($c = 0 ; $c < count($leg_dub); $c++){
-           add_post_meta( $pid, $prefix.'leg_dub'.$i,  $leg_dub[$c]);
-        }
+        $legendado_dublado =  $_POST['leg_dub'.$i];
+        for($ld = 0 ; $ld < count( $legendado_dublado ); $ld++){
+           add_post_meta( $pid, $prefix.'leg_dub'.$i,  $legendado_dublado[$ld]);
+        } 
 
     }
     

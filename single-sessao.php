@@ -97,7 +97,7 @@ get_header(); ?>
                                                 $ano = rwmb_meta( 'ss_ano'.$i, 'type=text', $pdi  );
                                                 $pais = rwmb_meta( 'ss_pais'.$i, 'type=text', $pdi  );
                                                 $idioma = rwmb_meta( 'ss_idioma'.$i, 'type=text', $pdi  );
-                                                $leg_dub = rwmb_meta( 'ss_leg_dub'.$i, 'type=text', $pdi  );
+                                                $leg_dub = implode( ', ', rwmb_meta( 'ss_leg_dub'.$i, 'type=checkbox_list' , $pdi  ));
                                                 $sinopse = rwmb_meta( 'ss_sinopse'.$i, 'type=text', $pdi  );
                                                 $minibio = rwmb_meta( 'ss_minibio'.$i, 'type=text', $pdi  );
                                                 $classificacao = rwmb_meta( 'ss_classificacao'.$i, 'type=text', $pdi  );
@@ -106,6 +106,7 @@ get_header(); ?>
                                           ?>
                                                 <li>
                                                       <b><?php echo $nome_filme ?></b><br />
+                                                      <strong>Nome Original:</strong> <?php echo $nome_original ?><br />
                                                       <strong>Direção:</strong> <?php echo $direcao ?><br />
                                                       <strong>Ano:</strong> <?php echo $ano ?><br />
                                                       <strong>País:</strong> <?php echo $pais ?><br />

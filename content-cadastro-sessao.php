@@ -243,9 +243,9 @@
 									Legendado ou Dublado
 									<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Informe sobre o audio e linguagem de reprodução do filme durante a exibição.">?</button>
 								</label>
-								<label class="linha"><input type="checkbox" name="leg_dub<?php echo $i ?>" value="legendado"> Legendado</label>
-								<label class="linha"><input type="checkbox" name="leg_dub<?php echo $i ?>" value="dublado"> Dublado</label>
-								<label class="linha"><input type="checkbox" name="leg_dub<?php echo $i ?>" value="portugues"> Audio Original em Português.</label>
+								<label class="linha"><input type="checkbox" name="leg_dub<?php echo $i ?>[]" value="legendado"> Legendado</label>
+								<label class="linha"><input type="checkbox" name="leg_dub<?php echo $i ?>[]" value="dublado"> Dublado</label>
+								<label class="linha"><input type="checkbox" name="leg_dub<?php echo $i ?>[]" value="portugues"> Audio Original em Português.</label>
 							</div>
 							<div class="col-md-12">
 								<label for="filmes">
