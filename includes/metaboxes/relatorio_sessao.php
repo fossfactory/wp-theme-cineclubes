@@ -448,7 +448,7 @@ function relatorio_sessao_register_meta_boxes( $meta_boxes )
         $meta_boxes[] = array(
             'id'       => 'filme'. $i,
             'title'    => 'Filme a ser exibido ' . $i,
-            'pages'    => array( 'sessao'),
+            'pages'    => array( 'relatorio_sessao'),
             'context'  => 'normal',
             'priority' => 'high',
             'type'  => 'group',
@@ -561,7 +561,7 @@ function relatorio_sessao_register_meta_boxes( $meta_boxes )
         $meta_boxes[] = array(
             'id'       => 'debatedor'. $i,
             'title'    => 'Debatedor '. $i,
-            'pages'    => array( 'sessao'),
+            'pages'    => array( 'relatorio_sessao'),
             'context'  => 'normal',
             'priority' => 'high',
             'type'  => 'group',

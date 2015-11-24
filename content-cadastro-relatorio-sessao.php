@@ -253,22 +253,15 @@
            </div>
            </div>
           <hr>
-           <!--SESSAO -->
-           <h3>Sessão</h3>
-           <div class="row">
-              <div class="col-md-12">
-          <label for="nome_da_sessao">Nome da sessão
-            <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Digite o título da sessão. Ex. ‘Sessão terror de verão 2015 - primeira edição.">?</button>
-          </label>
-          <input tyupe="text" name="title">
-        </div>
-      </div>
-           <div class="row">
-              <div class="col-md-12">
+
+           <!-- SESSAO -->
+          <h3>Sessão</h3>
+          <div class="row">
+            <div class="col-md-12">
           <label for="data" class="linha">
             Data em que será realizada a sessão 
             <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Escolha a data em que a sessão será realizada.">?</button>
-            <input type="date" name="data"  min="2011-01-01" value="">
+            <input type="date" name="data" class="data_sessao" min="2011-01-01" value="">
           </label>
               </div>
            </div>
@@ -289,6 +282,97 @@
           <label class="linha"><input type="radio" name="sessao_local" value="nao" class="sessao_local"> Não </label>
         </div>
       </div>
+      <div class="row">
+        <div class="col-md-12">
+          <label for="logradouro">Logradouro  <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Digite a rua, avenida, etc do CEU onde será realizada a sessão.">?</button>
+          </label>
+          <input type="text" name="logradouro" value="<?php  echo $logradouro ?>" class="logradouro" disabled="disabled">
+          <input type="hidden"  value="<?php  echo $logradouro ?>" class="js-logradouro">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <label for="numero">Número<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Digite o número do endereço.">?</button>
+          </label>
+          <input type="text" name="numero" value="<?php  echo $numero ?>" class="numero" disabled="disabled">
+          <input type="hidden" value="<?php  echo $numero ?>" class="js-numero">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <label for="complemento">Complemento<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Se houver complementos ao endereço como número do bloco, quadra, ou outros tipos de complemento, digite aqui..">?</button>
+          </label>
+          <input type="text" name="complemento" value="<?php  echo $complemento ?>" class="complemento" disabled="disabled">
+          <input type="hidden" value="<?php  echo $complemento ?>" class="js-complemento">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <label for="bairro">Bairro<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Digite o nome do bairro deste endereço">?</button>
+          </label>
+          <input type="text" name="bairro" value="<?php  echo $bairro ?>" class="bairro" disabled="disabled">
+          <input type="hidden" value="<?php  echo $bairro ?>" class="js-bairro">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <label for="cidade">Cidade<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Digite a cidade deste endereço.">?</button>
+          </label>
+          <input type="text" name="cidade" value="<?php  echo $cidade ?>" class="cidade" disabled="disabled">
+          <input type="hidden" value="<?php  echo $cidade ?>" class="js-cidade">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <label for="Estado" class="linha">Estado<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Digite o Estado deste endereço.">?</button>
+          </label>
+          <input type="hidden" value="<?php  echo $estado ?>" class="js-estado">
+          <select name="estado" class="estado" disabled="disabled">
+            <option value="">Selecione</option>
+            <option value="AC" <?php echo $estado == "AC" ? "selected" : "" ?> >Acre</option>
+            <option value="AL" <?php echo $estado == "AL" ? "selected" : "" ?> >Alagoas</option>
+            <option value="AP" <?php echo $estado == "AP" ? "selected" : "" ?> >Amapá</option>
+            <option value="AM" <?php echo $estado == "AM" ? "selected" : "" ?> >Amazonas</option>
+            <option value="BA" <?php echo $estado == "BA" ? "selected" : "" ?> >Bahia</option>
+            <option value="CE" <?php echo $estado == "CE" ? "selected" : "" ?> >Ceará</option>
+            <option value="DF" <?php echo $estado == "DF" ? "selected" : "" ?> >Distrito Federal</option>
+            <option value="ES" <?php echo $estado == "ES" ? "selected" : "" ?> >Espirito Santo</option>
+            <option value="GO" <?php echo $estado == "GO" ? "selected" : "" ?> >Goiás</option>
+            <option value="MA" <?php echo $estado == "MA" ? "selected" : "" ?> >Maranhão</option>
+            <option value="MS" <?php echo $estado == "MS" ? "selected" : "" ?> >Mato Grosso do Sul</option>
+            <option value="MT" <?php echo $estado == "MT" ? "selected" : "" ?> >Mato Grosso</option>
+            <option value="MG" <?php echo $estado == "MG" ? "selected" : "" ?> >Minas Gerais</option>
+            <option value="PA" <?php echo $estado == "PA" ? "selected" : "" ?> >Pará</option>
+            <option value="PB" <?php echo $estado == "PB" ? "selected" : "" ?> >Paraíba</option>
+            <option value="PR" <?php echo $estado == "PR" ? "selected" : "" ?> >Paraná</option>
+            <option value="PE" <?php echo $estado == "PE" ? "selected" : "" ?> >Pernambuco</option>
+            <option value="PI" <?php echo $estado == "PI" ? "selected" : "" ?> >Piauí</option>
+            <option value="RJ" <?php echo $estado == "RJ" ? "selected" : "" ?> >Rio de Janeiro</option>
+            <option value="RN" <?php echo $estado == "RN" ? "selected" : "" ?> >Rio Grande do Norte</option>
+            <option value="RS" <?php echo $estado == "RS" ? "selected" : "" ?> >Rio Grande do Sul</option>
+            <option value="RO" <?php echo $estado == "RO" ? "selected" : "" ?> >Rondônia</option>
+            <option value="RR" <?php echo $estado == "RR" ? "selected" : "" ?> >Roraima</option>
+            <option value="SC" <?php echo $estado == "SC" ? "selected" : "" ?> >Santa Catarina</option>
+            <option value="SP" <?php echo $estado == "SP" ? "selected" : "" ?> >São Paulo</option>
+            <option value="SE" <?php echo $estado == "SE" ? "selected" : "" ?> >Sergipe</option>
+            <option value="TO" <?php echo $estado == "TO" ? "selected" : "" ?> >Tocantins</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <label for="cep" class="linha">CEP <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Digite o cep deste endereço.">?</button>
+            <input type="text" name="cep" value="<?php  echo $cep ?>" class="cep" disabled="disabled">
+            <input type="hidden" value="<?php  echo $cep ?>" class="js-cep">
+          </label>
+        </div>
+        </div>
           <div class="row">
               <div class="col-md-12">
           <label for="requisito">Sessão gratuita?<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Informe se a participação na sessão tem algum requisito de entrada. Ex.: um quilo de alimento.">?</button>
@@ -381,9 +465,9 @@
                   Legendado ou Dublado
                   <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Informe sobre o audio e linguagem de reprodução do filme durante a exibição.">?</button>
                 </label>
-                <label class="linha"><input type="checkbox" name="leg_dub<?php echo $i ?>" value="legendado"> Legendado</label>
-                <label class="linha"><input type="checkbox" name="leg_dub<?php echo $i ?>" value="dublado"> Dublado</label>
-                <label class="linha"><input type="checkbox" name="leg_dub<?php echo $i ?>" value="portugues"> Audio Original em Português.</label>
+                <label class="linha"><input type="checkbox" name="leg_dub<?php echo $i ?>[]" value="legendado"> Legendado</label>
+                <label class="linha"><input type="checkbox" name="leg_dub<?php echo $i ?>[]" value="dublado"> Dublado</label>
+                <label class="linha"><input type="checkbox" name="leg_dub<?php echo $i ?>[]" value="portugues"> Audio Original em Português.</label>
               </div>
               <div class="col-md-12">
                 <label for="filmes">
@@ -433,8 +517,6 @@
           $classed = "submit-hide js-debatedor".$d;
             $btn_mais = "js-debatedor".($d + 1);
             $btn_menos = "js-debatedor".$d;
-
-            
 
             if($d > 1){
               $classed .= " hide";

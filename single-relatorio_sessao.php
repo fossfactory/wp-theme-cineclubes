@@ -28,7 +28,7 @@ get_header(); ?>
                 $justificativa = rwmb_meta( 'rs_justificativa_nao', 'type=text', $pdi  );
                 $arquivo = rwmb_meta( 'rs_arquivo_just', 'type=file', $pdi  );
                 $pessoas_presentes = rwmb_meta( 'rs_pessoas_presentes', 'type=text', $pdi  );
-                $divulgacao = rwmb_meta( 'rs_divulgacao', 'type=text', $pdi  );
+                $divulgacao = implode( ', ', rwmb_meta( 'rs_divulgacao', 'type=checkbox_list', $pdi  ));
                 $divulgacao_opcional = rwmb_meta( 'rs_divulgacao_opcional', 'type=text', $pdi  );
                 $relato = rwmb_meta( 'rs_relato', 'type=text', $pdi  ); 
                 $fetaria_prim = rwmb_meta( 'rs_fetaria_prim', 'type=text', $pdi  );
@@ -158,7 +158,7 @@ get_header(); ?>
                                         $ano = rwmb_meta( 'ss_ano'.$i, 'type=text', $sessao_id  );
                                         $pais = rwmb_meta( 'ss_pais'.$i, 'type=text', $sessao_id  );
                                         $idioma = rwmb_meta( 'ss_idioma'.$i, 'type=text', $sessao_id  );
-                                        $leg_dub = rwmb_meta( 'ss_leg_dub'.$i, 'type=text', $sessao_id  );
+                                        $leg_dub = implode( ', ', rwmb_meta( 'ss_leg_dub'.$i, 'type=checkbox_list' , $pdi  ));
                                         $sinopse = rwmb_meta( 'ss_sinopse'.$i, 'type=text', $sessao_id  );
                                         $minibio = rwmb_meta( 'ss_minibio'.$i, 'type=text', $sessao_id  );
                                         $classificacao = rwmb_meta( 'ss_classificacao'.$i, 'type=text', $sessao_id  );
@@ -167,6 +167,7 @@ get_header(); ?>
                                 ?>
                                         <li>
                                               <b><?php echo $nome_filme ?></b><br />
+                                            <strong>Nome Original:</strong> <?php echo $nome_original ?><br />
                                               <strong>Direção:</strong> <?php echo $direcao ?><br />
                                               <strong>Ano:</strong> <?php echo $ano ?><br />
                                               <strong>País:</strong> <?php echo $pais ?><br />
