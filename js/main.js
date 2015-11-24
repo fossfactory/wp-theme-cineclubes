@@ -115,8 +115,39 @@ $(function () {
     $('select.js-title-sessao').on('change', function(){
         var id = $('select.js-title-sessao option:selected').attr('rel');
         var data = $('select.js-title-sessao option:selected').attr('date');
-         $('.js-sessao-id').val( id );   
-         $('.js-sessao-data').val( data  );      
+        
+        $('.js-sessao-id').val( id );   
+        $('.js-sessao-data').val( data  );  
+        
+        var url_theme = theme.url;
+        var url_form = url_theme + '/includes/actions/ajax_relatorio.php';
+        // setup the ajax request
+        $.ajax({
+            url: url_form,
+            type: "POST",
+            responseType: 'json',
+
+            data: { id: id},
+            success: function( response ) { 
+                console.log(  response );
+                alert( response.ano1);
+
+                //var campos = data.split('&');
+
+               // $('.js-sessao-id').val( id );   
+                //$('.js-sessao-data').val( data  ); 
+
+                //$('.data_sessao').val( data  );   
+                
+                
+            },  
+            error: function(jqXHR, textStatus, errorThrown){                                        
+                //console.log("The following error occured: " + textStatus, errorThrown);                                                       
+            },
+            
+        });
+
+
     });
 
     //Validando Sessao Realizada??
@@ -298,8 +329,7 @@ $(function () {
                 });
                 $('.preview-image').hide();
                 $('.submit-hide').hide();
-                
-
+    
             },  
             error: function(jqXHR, textStatus, errorThrown){                                        
                 //console.log("The following error occured: " + textStatus, errorThrown);                                                       
@@ -345,7 +375,7 @@ $(function () {
                 });
                 $('.preview-image').hide();
 
-                location.reload();
+                //location.reload();
 
             },  
             error: function(jqXHR, textStatus, errorThrown){                                        
