@@ -253,12 +253,12 @@
 					<input type="hidden" name="thumb_infos" class="thumb-cineclube" value="">
 					
 					<!-- BTN UPLOAD -->
-					<div class="container">
+					<div class="container col-xs-10">
 					    <div class="row" style="padding-top:10px;">
 					        <div class="col-xs-2">
 					            <button id="upload-thumb-cineclube" class="btn btn-large btn-primary btn-upload thumb-cineclube">Nova Foto</button>
 					        </div>
-					        <div class="col-xs-10">
+					        <div class="col-xs-4">
 					          <div id="progressOuter" class="progress progress-striped active" style="display:none;">
 					            <div id="progressBar" class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
 					            </div>
@@ -266,7 +266,7 @@
 					        </div>
 					    </div>
 					    <div class="row" style="padding-top:10px;">
-					        <div class="col-xs-10">
+					        <div class="col-xs-4">
 					          <div id="msgBox">
 					          </div>
 					        </div>
