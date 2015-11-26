@@ -612,20 +612,6 @@ function relatorio_sessao_register_meta_boxes( $meta_boxes )
     );
     
 
-    // Relatorio de Sessão
-    $meta_boxes[] = array(
-        'id'       => 'relatorio_id',
-        'title'    => 'relatorio_sessao',
-        'pages'    => array('relatorio_sessao'),
-        'fields' => array(
-            array(
-                'name' => 'Relatorio da Sessão ID POST',
-                'id'   => $prefix . 'id_relatorio',
-                'type' => 'text',
-            ),
-        )
-    );
-
 
     /*
      * Campos Cineclube

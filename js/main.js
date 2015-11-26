@@ -130,15 +130,111 @@ $(function () {
             data: { id: id},
             success: function( response ) { 
                 console.log(  response );
-                alert( response.ano1);
 
-                //var campos = data.split('&');
+                $('.data_sessao').val( response.data_sessao  );  
+                $('.time').val( response.horario );  
 
-               // $('.js-sessao-id').val( id );   
-                //$('.js-sessao-data').val( data  ); 
-
-                //$('.data_sessao').val( data  );   
+                if(response.sessao_local === "sim" ){
+                $( ".sessao_local[value=sim]" ).prop( "checked", true );
+                }else{
+                    $( ".sessao_local[value=nao]" ).prop( "checked", true );
+                };
+    
+                $('.logradouro').val( response.logradouro   );  
+                $('.numero').val( response.numero   );  
+                $('.complemento').val( response.complemento  );  
+                $('.bairro').val( response.bairro   );  
+                $('.cidade').val( response.cidade   ); 
+                $('.estado').val( response.estado );   
+                $('.cep').val( response.cep   );
+                $('.requisito').val( response.requisito  );   
                 
+                
+                for(var i = 0; i <= 16; i++){
+                    var filme = "nome_filme"+i;
+                    var original = "nome_original"+i;
+                    var direcao = "direcao"+i;
+                    var ano = "ano"+i;
+                    var pais = "pais"+i;
+                    var leg_dub = "leg_dub"+i;
+                    var idioma = "idioma"+i;
+                    var sinopse = "sinopse"+i;
+                    var classificacao = "classificacao"+i;
+
+                    if (typeof response[filme] != 'undefined') {
+                        $(".nome_filme"+i).val( response[filme] );
+                        $(".nome_original"+i).val( response[original] ); 
+                        $(".direcao"+i).val( response[direcao] );   
+                        $(".ano"+i).val( response[ano]   );
+                        $(".pais"+i).val( response[pais] );   
+                        
+                        var leg_dub = response[leg_dub].split(",");
+
+                        for (l in leg_dub) {
+                            var item = leg_dub[l].trim();
+                            $( ".leg_dub"+i+"[value='"+item+"']" ).prop( "checked", true );
+                        }
+
+                        $(".idioma"+i).val( response[idioma]  );
+                        $(".sinopse"+i).val( response[sinopse]  );
+
+                        $(".classificacao"+i+"[value='"+response[classificacao]+"']").prop( "checked", true );
+
+                        $('.js-filme'+i).removeClass("hide submit-hide");
+                    }else{
+                        $('.js-filme'+i).addClass("hide submit-hide");
+                    }
+
+                };
+               
+                
+
+                if(response.havera_debate === "sim" ){
+                    $( ".debate-content" ).show();
+                    $( ".havera_debate[value=sim]" ).prop( "checked", true );
+                }else{
+                    $( ".havera_debate[value=nao]" ).prop( "checked", true );
+                     $(".debate-content").hide();
+
+                };
+
+                if(response.thumb_url != ""){
+                    $('.thumb-sessao').removeClass('hide');
+                    $('.thumb-sessao').val( response.thumb_id );
+                    $('.thumb-sessao img').attr("src", response.thumb_url);
+                }else{
+                    $('.thumb-sessao').addClass('hide');
+                    $('.thumb-sessao').val( response.thumb_url );
+                    $('.thumb-sessao img').attr("src", response.thumb_url);
+                };
+               
+                
+                for(var d = 1; d <= 5; d++){
+                    var nome_debatedor = "nome_debatedor"+d;
+                    var bibliografia_debatedor = "bibliografia_debatedor"+d;
+                    var foto_debatedor = "foto_debatedor"+d;
+
+                    if (typeof response[nome_debatedor] != 'undefined') {
+
+                        $(".nome_debatedor"+d).val( response[nome_debatedor]  );
+                        $(".bibliografia_debatedor"+d).val( response[bibliografia_debatedor] ); 
+
+                        if(response[foto_debatedor] != ""){
+                            $('.foto_debatedor'+d).removeClass('hide');
+                            $('.foto_debatedor'+d).val( response[foto_debatedor]  );
+                            $('.foto_debatedor'+d+' img').attr("src", response[foto_debatedor] );
+                        }else{
+                            $('.foto_debatedor'+d).addClass('hide');
+                            $('.foto_debatedor'+d).val( response[foto_debatedor]  );
+                            $('.foto_debatedor'+d+' img').attr("src", response[foto_debatedor] );
+                        };
+
+                        $('.js-debatedor'+d).removeClass("hide submit-hide");
+                    }else{
+                        $('.js-debatedor'+d).addClass("hide submit-hide");
+                    };
+
+                };
                 
             },  
             error: function(jqXHR, textStatus, errorThrown){                                        

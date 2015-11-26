@@ -14,14 +14,20 @@
     $campos["horario"] = rwmb_meta( 'ss_horario', 'type=text', $pdi  );
     $campos["requisito"]  = rwmb_meta( 'ss_requisito', 'type=text', $pdi  );
     $campos["havera_debate"] = rwmb_meta( 'ss_havera_debate', 'type=text', $pdi  ); 
+    $campos["sessao_local"] = rwmb_meta( 'ss_sessao_local', 'type=text', $pdi  ); 
+
+
+
     
-    $thumb = wp_get_attachment_image_src( get_post_thumbnail_id($pdi), 'full' );
+    $thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $pdi ), 'full' );
     $thumb_url = $thumb['0']; 
     if(empty($thumb_url)){
       $thumb_url = "/wp-content/uploads/cineclube/sessao.png";
     }
+    $thumbnail_id = get_post_thumbnail_id( $pdi ); 
 
     $campos["thumb_url"] =  $thumb_url;
+    $campos["thumb_id"] =  $thumbnail_id;
 
     $campos["logradouro"] =  rwmb_meta( 'ss_logradouro', 'type=text', $pdi  );
     $campos["numero"] =  rwmb_meta( 'ss_numero', 'type=text', $pdi  );
@@ -70,10 +76,13 @@
         $nome_debatedor = rwmb_meta( 'ss_nome_debatedor'.$d, 'type=text', $pdi  );
         $bibliografia = rwmb_meta( 'ss_bibliografia_debatedor'.$d, 'type=text', $pdi  );
         $foto_debatedor = rwmb_meta( 'ss_foto_debatedor'.$d, 'type=image', $pdi  );
+        $fotoid = get_post_meta(  $pdi, 'ss_foto_debatedor'.$d );
 
+        
         if(strlen($nome_debatedor) > 1){
-            $campos["nome_debatedor".$d] =  $nome_filme;
-            $campos["bibliografia".$d] =  $bibliografia;
+            $campos["nome_debatedor".$d] =  $nome_debatedor;
+            $campos["bibliografia_debatedor".$d] =  $bibliografia;
+            $campos["fotoid".$d] = $fotoid[0];
 
             foreach ( $foto_debatedor as $f ){ 
                $campos["foto_debatedor".$d] =  $f['url'];

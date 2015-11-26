@@ -93,130 +93,45 @@ get_header(); ?>
                     <div class="section">
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="section">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-md-8 cineLocalizacao">
-                                                <h1>
-                                                    <?php the_title(); ?>
-                                                </h1>
-                                                <p class="text-justify">
-                                                   <?php echo $relato ?>
-                                                </p>
-                                                <hr>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <img src="<?php echo $thumb_url ?>" class="img-responsive">
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="col-md-8 cineLocalizacao">
+                                    <h1>
+                                        <?php the_title(); ?>
+                                    </h1>
+                                    <p class="text-justify">
+                                       <?php echo $relato ?>
+                                    </p>
+                                    <hr>
+                                     <h2>Informações</h2>
+                                    <b><a href="<?php echo get_permalink( $cineclube_id ); ?>" target="_blank"><?php echo $cineclube_nome ?></a></b><br>
+                                    Endereço<br>
+                                    <?php echo $logradouro ?>, <?php echo $numero ?><br>
+                                    <?php echo $bairro ?> - <?php echo $cidade ?> - <?php echo $estado ?> -&nbsp;CEP: <?php echo $cep ?><br>
+                                    <b>Capacidade:</b> <?php echo $capacidade ?><br>
+                                    <b>Recebe filmes pela internet? </b><?php  echo $internet ?> <br>
+                                    <b>Email Principal:&nbsp;</b><?php  echo $email_prin ?><br>
+                                    <b>Email Secundário:&nbsp;</b><?php  echo $email_secun ?><br>
+                                    <b>Telefone Principal:</b>&nbsp;<?php  echo $telefone_prin ?> <br>
+                                    <b>Telefone Secundário:</b>&nbsp;<?php  echo $telefone_secun ?><br>
+                                    <p>Redes sociais do cineclube</p>
+                                    <?php echo isset($facebook) ? "Facebook: " . $facebook . "<br >" : "" ; ?>
+                                    <?php echo isset($twitter) ? "Twitter:  " . $facebook . "<br >" : "" ; ?>
+                                    <?php echo isset($instagram) ? "Instagram: " . $instagram . "<br >": "" ; ?>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <img src="<?php echo $thumb_url ?>" class="img-responsive">
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <hr>
                     <div class="section">
-                      <div class="container">
                         <div class="row">
                           <div class="col-md-12">
                             <div class="cineLocalizacao">
-                              <h2>Informações</h2>
-                                <b><a href="<?php echo get_permalink( $cineclube_id ); ?>" target="_blank"><?php echo $cineclube_nome ?></a></b><br>
-                                Endereço<br>
-                                <?php echo $logradouro ?>, <?php echo $numero ?><br>
-                                <?php echo $bairro ?> - <?php echo $cidade ?> - <?php echo $estado ?> -&nbsp;CEP: <?php echo $cep ?><br>
-                                <b>Capacidade:</b> <?php echo $capacidade ?><br>
-                                <b>Recebe filmes pela internet? </b><?php  echo $internet ?> <br>
-
-
-                                <b>Email Principal:&nbsp;</b><?php  echo $email_prin ?><br>
-                                <b>Email Secundário:&nbsp;</b><?php  echo $email_secun ?><br>
-                                <b>Telefone Principal:</b>&nbsp;<?php  echo $telefone_prin ?> <br>
-                                <b>Telefone Secundário:</b>&nbsp;<?php  echo $telefone_secun ?><br>
-
-
-                                <p>Redes sociais do cineclube</p>
-                                Facebook:  <?php  echo $facebook ?><br>
-                                Twitter:   <?php  echo $twitter ?><br>
-                                Instagram: <?php  echo $instagram ?><br>
-
-                                Insira Tags de Pesquisa<br>
-
                                 <h3>Nome da sessão: <?php the_title(); ?></h3>
                                 <b>Data e hora da apresentação</b>: <?php echo $data_sessao ?> - <?php echo $horario ?><br>
                                 <b>Requisito de entrada na sessão:</b> <?php echo $requisito ?><br>
-
-                                <h3>Filmes a serem exibidos</h3>
-                                <ul>
-                                <?php 
-
-                                    //ForNome Do Filme
-                                    for($i = 1; $i <= 16; $i++){
-                                        
-                                        $nome_filme = rwmb_meta( 'ss_nome_filme'.$i, 'type=text', $sessao_id  );
-                                        $nome_original = rwmb_meta( 'ss_nome_original'.$i, 'type=text', $sessao_id  ); 
-                                        $direcao = rwmb_meta( 'ss_direcao'.$i, 'type=text', $sessao_id  );
-                                        $ano = rwmb_meta( 'ss_ano'.$i, 'type=text', $sessao_id  );
-                                        $pais = rwmb_meta( 'ss_pais'.$i, 'type=text', $sessao_id  );
-                                        $idioma = rwmb_meta( 'ss_idioma'.$i, 'type=text', $sessao_id  );
-                                        $leg_dub = implode( ', ', rwmb_meta( 'ss_leg_dub'.$i, 'type=checkbox_list' , $pdi  ));
-                                        $sinopse = rwmb_meta( 'ss_sinopse'.$i, 'type=text', $sessao_id  );
-                                        $minibio = rwmb_meta( 'ss_minibio'.$i, 'type=text', $sessao_id  );
-                                        $classificacao = rwmb_meta( 'ss_classificacao'.$i, 'type=text', $sessao_id  );
-                                        
-                                         if( strlen( $nome_filme ) > 1 ){
-                                ?>
-                                        <li>
-                                              <b><?php echo $nome_filme ?></b><br />
-                                            <strong>Nome Original:</strong> <?php echo $nome_original ?><br />
-                                              <strong>Direção:</strong> <?php echo $direcao ?><br />
-                                              <strong>Ano:</strong> <?php echo $ano ?><br />
-                                              <strong>País:</strong> <?php echo $pais ?><br />
-                                              <strong>Idioma falado:</strong> <?php echo $idioma ?><br />
-                                              <strong>Legendado e/ou Dublabo:</strong> <?php echo $leg_dub ?><br />
-                                              <b>Sinopse:</b> <i><?php echo $sinopse ?></i><br />
-                                              <b>Classificação:</b> <?php echo $classificacao ?>
-                                        </li>
-                                <?php 
-                                        };//end if
-                                    }//end for
-                                ?>
-                                </ul>
-                                
-                                <h3>Debate </h3>
-                                <?php 
-                                    if($havera_debate == "nao"){
-                                        echo "<p>Não haverá debate</p>";
-                                    }else{
-                                        echo " <p><b>Debatedore(s):</b></p>";
-                                        echo "<ul>";
-                                        for($de = 1; $de <= 5; $de++){
-                                          $nome_debatedor = rwmb_meta( 'ss_nome_debatedor'.$de, 'type=text', $sessao_id  );
-                                          $foto_debatedor = rwmb_meta( 'ss_foto_debatedor'.$de, 'type=image', $sessao_id  );
-                                          $bibliografia   = rwmb_meta( 'ss_bibliografia_debatedor'.$de, 'type=text', $sessao_id  );
-
-                                          if(strlen($nome_debatedor) > 1){
-                                ?>
-                                            <li class="debatedores">
-                                                <b><?php echo $nome_debatedor ?></b>
-                                                <br>
-                                                <div class="col-md-3">
-                                                    <?php 
-                                                        foreach ( $foto_debatedor as $f ){ 
-                                                            echo "<img src='".$f['url']."' class='img-responsive'>";
-                                                        }
-                                                    ?>
-                                                <i>Mini-bio: <?php echo $bibliografia ?></i>
-                                                    
-                                                </div><br />
-                                            </li>
-                                <?php 
-                                            }//End If strlen;
-                                        };//End For
-                                        echo "</ul><br >";
-                                    };//End If Havera Debate
-                                ?>
-
-
                                 <b>Número total de pessoas presentes:</b> <?php echo $pessoas_presentes ?><br>
                                 <b>A divulgação da sessão foi feita como?</b> <?php echo $divulgacao ?><br>
                                 <?php
@@ -254,10 +169,85 @@ get_header(); ?>
                                         }
                                     ?>
                                 </ul>
+                                <h3>Filmes exibidos</h3>
+                                <ul>
+                                <?php 
+
+                                    //ForNome Do Filme
+                                    for($i = 1; $i <= 16; $i++){
+                                        
+                                        $nome_filme = rwmb_meta( 'ss_nome_filme'.$i, 'type=text', $sessao_id  );
+                                        $nome_original = rwmb_meta( 'ss_nome_original'.$i, 'type=text', $sessao_id  ); 
+                                        $direcao = rwmb_meta( 'ss_direcao'.$i, 'type=text', $sessao_id  );
+                                        $ano = rwmb_meta( 'ss_ano'.$i, 'type=text', $sessao_id  );
+                                        $pais = rwmb_meta( 'ss_pais'.$i, 'type=text', $sessao_id  );
+                                        $idioma = rwmb_meta( 'ss_idioma'.$i, 'type=text', $sessao_id  );
+                                        $leg_dub = implode( ', ', rwmb_meta( 'ss_leg_dub'.$i, 'type=checkbox_list' , $pdi  ));
+                                        $sinopse = rwmb_meta( 'ss_sinopse'.$i, 'type=text', $sessao_id  );
+                                        $minibio = rwmb_meta( 'ss_minibio'.$i, 'type=text', $sessao_id  );
+                                        $classificacao = rwmb_meta( 'ss_classificacao'.$i, 'type=text', $sessao_id  );
+                                        
+                                         if( strlen( $nome_filme ) > 1 ){
+                                ?>
+                                        <li>
+                                              <b><?php echo $nome_filme ?></b><br />
+                                            <strong>Nome Original:</strong> <?php echo $nome_original ?><br />
+                                              <strong>Direção:</strong> <?php echo $direcao ?><br />
+                                              <strong>Ano:</strong> <?php echo $ano ?><br />
+                                              <strong>País:</strong> <?php echo $pais ?><br />
+                                              <strong>Idioma falado:</strong> <?php echo $idioma ?><br />
+                                              <strong>Legendado e/ou Dublabo:</strong> <?php echo $leg_dub ?><br />
+                                              <b>Sinopse:</b> <i><?php echo $sinopse ?></i><br />
+                                              <b>Classificação:</b> <?php echo $classificacao ?>
+                                        </li>
+                                <?php 
+                                        };//end if
+                                    }//end for
+                                ?>
+                                </ul>
+
+                                <hr>
+                                
+                                <h3>Debate </h3>
+                                <?php 
+                                    if($havera_debate == "nao"){
+                                        echo "<p>Não haverá debate</p>";
+                                    }else{
+                                        echo " <p><b>Debatedore(s):</b></p>";
+                                        echo "<ul>";
+                                        for($de = 1; $de <= 5; $de++){
+                                          $nome_debatedor = rwmb_meta( 'ss_nome_debatedor'.$de, 'type=text', $sessao_id  );
+                                          $foto_debatedor = rwmb_meta( 'ss_foto_debatedor'.$de, 'type=image', $sessao_id  );
+                                          $bibliografia   = rwmb_meta( 'ss_bibliografia_debatedor'.$de, 'type=text', $sessao_id  );
+
+                                          if(strlen($nome_debatedor) > 1){
+                                ?>
+                                            <li class="col-md-4">
+                                                <b><?php echo $nome_debatedor ?></b>
+                                                <br>
+                                                <div class="">
+                                                    <?php 
+                                                        foreach ( $foto_debatedor as $f ){ 
+                                                            echo "<img src='".$f['url']."' class='img-responsive'>";
+                                                        }
+                                                    ?>
+                                                <i>Mini-bio: <?php echo $bibliografia ?></i>
+                                                    
+                                                </div><br />
+                                            </li>
+                                <?php 
+                                            }//End If strlen;
+                                        };//End For
+                                        echo "</ul><br >";
+                                    };//End If Havera Debate
+                                ?>
+
+
+                               
                           </div>
                         </div>
-                      </div>
                     </div>
+                    <hr>
                     <div class="section">
                             <div class="row">
                                 <div class="col-md-12">

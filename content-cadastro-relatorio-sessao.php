@@ -34,6 +34,7 @@
     					<label for="nome_da_sessao">Nome da sessão
               <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Escolha a sessão a qual deseja preencher um relatório.">?</button></label>
               <select name="title" class="js-title-sessao form-control"  >
+                <option value="" >Selecione a Sessão</option>
                 <?php 
                     for( $i = 0; $i < $cont; $i++ ){
                       echo '<option value=" ' . $title[$i] . '" rel="' . $pdi[$i] . '" date="'. $data_sessao[$i].'" >' . $title[$i] . '</option>';
@@ -67,12 +68,12 @@
                     <img src="" >
                   </div>
                   <!-- BTN UPLOAD -->
-                    <div class="container">
+                    <div class="container col-xs-10">
                         <div class="row" style="padding-top:10px;">
                             <div class="col-xs-2">
                                 <button id="arquivo_just" class="btn btn-large btn-primary btn-upload arquivo_just">Upload Arquivo</button>
                             </div>
-                            <div class="col-xs-10">
+                            <div class="col-xs-4">
                               <div id="progressOuter" class="progress progress-striped active" style="display:none;">
                                 <div id="progressBar" class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
                                 </div>
@@ -80,7 +81,7 @@
                             </div>
                         </div>
                         <div class="row" style="padding-top:10px;">
-                            <div class="col-xs-10">
+                            <div class="col-xs-4">
                               <div id="msgBox">
                               </div>
                             </div>
@@ -195,7 +196,6 @@
            <div class="row">
            		<div class="col-md-12">
                 <label> Fotos da Sessão <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Fotos da sessão(nome da imagem sem caracteres especiais).">?</button></label>
-      					
                 <?php 
                     //BTN UPLOAD IMAGE
                     for($i = 1; $i <= 6; $i++){
@@ -208,12 +208,12 @@
                   <img src="" >
                 </div>
                 <!-- BTN UPLOAD -->
-                <div class="container">
+                <div class="container col-xs-10">
                     <div class="row" style="padding-top:10px;">
                         <div class="col-xs-2">
                             <button id="foto_sessao<?php echo $i ?>" class="btn btn-large btn-primary btn-upload foto_sessao<?php echo $i ?>">Nova Foto</button>
                         </div>
-                        <div class="col-xs-10">
+                        <div class="col-xs-4">
                           <div id="progressOuter" class="progress progress-striped active" style="display:none;">
                             <div id="progressBar" class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
                             </div>
@@ -221,7 +221,7 @@
                         </div>
                     </div>
                     <div class="row" style="padding-top:10px;">
-                        <div class="col-xs-10">
+                        <div class="col-xs-4">
                           <div id="msgBox">
                           </div>
                         </div>
@@ -377,7 +377,7 @@
               <div class="col-md-12">
           <label for="requisito">Sessão gratuita?<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Informe se a participação na sessão tem algum requisito de entrada. Ex.: um quilo de alimento.">?</button>
           </label>
-          <input type="text" name="requisito" value="">
+          <input type="text" name="requisito" value="" class="requisito">
               </div>
            </div>
            <hr >
@@ -423,70 +423,70 @@
                   Nome do Filme
                   <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Nome do filme em português. Ex.: ‘O poderoso chefão’.">?</button>
                 </label>
-                <input text="text" name="nome_filme<?php echo $i ?>" >
+                <input text="text" name="nome_filme<?php echo $i ?>"  class="nome_filme<?php echo $i ?>">
               </div>
               <div class="col-md-12">
                 <label for="filmes">
                   Nome Original 
                   <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Nome original do filme. Ex.: ‘The Godfather’.">?</button>
                 </label>
-                <input text="text" name="nome_original<?php echo $i ?>" >
+                <input text="text" name="nome_original<?php echo $i ?>"  class="nome_original<?php echo $i ?>">
               </div>
               <div class="col-md-12">
                 <label for="filmes">
                   Direção
                   <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Digite o(s) do(s) diretor(es) do filme(s). Ex.: ‘Francis Ford Coppola’..">?</button>
                 </label>
-                <input text="text" name="direcao<?php echo $i ?>" >
+                <input text="text" name="direcao<?php echo $i ?>" class="direcao<?php echo $i ?>">
               </div>
               <div class="col-md-12">
                 <label for="filmes">
                   Ano
                   <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Ano de lançamento do filme. Ex.: 1972.">?</button>
                 </label>
-                <input text="text" name="ano<?php echo $i ?>" >
+                <input text="text" name="ano<?php echo $i ?>" class="ano<?php echo $i ?>" >
               </div>
               <div class="col-md-12">
                 <label for="filmes">
                   País
                   <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Pais(es) de produção/gravação do filme. Ex.: ‘Estados Unidos’.">?</button>
                 </label>
-                <input text="text" name="pais<?php echo $i ?>" >
+                <input text="text" name="pais<?php echo $i ?>" class="pais<?php echo $i ?>">
               </div>
               <div class="col-md-12">
                 <label for="filmes">
                   Idioma falado
                   <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Idioma original do filme. Ex.: ‘Inglês Americano’.">?</button>
                 </label>
-                <input text="text" name="idioma<?php echo $i ?>" >
+                <input text="text" name="idioma<?php echo $i ?>" class="idioma<?php echo $i ?>">
               </div>
               <div class="col-md-12">
                 <label for="filmes">
                   Legendado ou Dublado
                   <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Informe sobre o audio e linguagem de reprodução do filme durante a exibição.">?</button>
                 </label>
-                <label class="linha"><input type="checkbox" name="leg_dub<?php echo $i ?>[]" value="legendado"> Legendado</label>
-                <label class="linha"><input type="checkbox" name="leg_dub<?php echo $i ?>[]" value="dublado"> Dublado</label>
-                <label class="linha"><input type="checkbox" name="leg_dub<?php echo $i ?>[]" value="portugues"> Audio Original em Português.</label>
+                <label class="linha"><input type="checkbox" name="leg_dub<?php echo $i ?>[]" value="legendado" class="leg_dub<?php echo $i ?>"> Legendado</label>
+                <label class="linha"><input type="checkbox" name="leg_dub<?php echo $i ?>[]" value="dublado" class="leg_dub<?php echo $i ?>"> Dublado</label>
+                <label class="linha"><input type="checkbox" name="leg_dub<?php echo $i ?>[]" value="portugues" class="leg_dub<?php echo $i ?>"> Audio Original em Português.</label>
               </div>
               <div class="col-md-12">
                 <label for="filmes">
                   Sinopse
                   <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Escreva uma breve sinopse do filme.">?</button>
                 </label>
-                <textarea name="sinopse<?php echo $i ?>"></textarea>
+                <textarea name="sinopse<?php echo $i ?>" class="sinopse<?php echo $i ?>"></textarea>
               </div>
               <div class="col-md-12">
                 <label for="filmes">
                   Classificação indicativa
                   <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Informe a classificação indicativa do filme conforme legislação brasileira.">?</button>
                 </label>
-                <label class="linha"><input type="radio" name="classificacao<?php echo $i ?>" value="livre"> Livre para todas as idades</label>
-                <label class="linha"><input type="radio" name="classificacao<?php echo $i ?>" value="Não recomendado para menores de 10 anos"> Não recomendado para menores de 10 anos </label>
-                <label class="linha"><input type="radio" name="classificacao<?php echo $i ?>" value="Não recomendado para menores de 12 anos"> Não recomendado para menores de 12 anos </label>
-                <label class="linha"><input type="radio" name="classificacao<?php echo $i ?>" value="Não recomendado para menores de 14 anos"> Não recomendado para menores de 14 anos </label>
-                <label class="linha"><input type="radio" name="classificacao<?php echo $i ?>" value="Não recomendado para menores de 16 anos"> Não recomendado para menores de 16 anos </label>
-                <label class="linha"><input type="radio" name="classificacao<?php echo $i ?>" value="Não recomendado para menores de 18 anos"> Não recomendado para menores de 18 anos </label>
+                <label class="linha"><input type="radio" name="classificacao<?php echo $i ?>" class="classificacao<?php echo $i ?>" value="livre"> Livre para todas as idades</label>
+                <label class="linha"><input type="radio" name="classificacao<?php echo $i ?>" class="classificacao<?php echo $i ?>" value="Não recomendado para menores de 10 anos"> Não recomendado para menores de 10 anos </label>
+                <label class="linha"><input type="radio" name="classificacao<?php echo $i ?>" class="classificacao<?php echo $i ?>" value="Não recomendado para menores de 12 anos"> Não recomendado para menores de 12 anos </label>
+                <label class="linha"><input type="radio" name="classificacao<?php echo $i ?>" class="classificacao<?php echo $i ?>" value="Não recomendado para menores de 14 anos"> Não recomendado para menores de 14 anos </label>
+                <label class="linha"><input type="radio" name="classificacao<?php echo $i ?>" class="classificacao<?php echo $i ?>" value="Não recomendado para menores de 16 anos"> Não recomendado para menores de 16 anos </label>
+                <label class="linha"><input type="radio" name="classificacao<?php echo $i ?>" class="classificacao<?php echo $i ?>" value="Não recomendado para menores de 18 anos"> Não recomendado para menores de 18 anos </label>
               </div>
             </div>
           </div>
@@ -540,29 +540,25 @@
               Nome do Debatedor
               <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Informe o nome do(a) debatedor(a).">?</button>
             </label>
-            <input text="text" name="nome_debatedor<?php echo $d ?>" >
+            <input text="text" name="nome_debatedor<?php echo $d ?>" class="nome_debatedor<?php echo $d ?>">
           </div>
           <div class="col-md-12">
             <label for="filmes">
               Foto Debatedor
-              <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Insira uma foto do debatedor(nome da imagem sem caracteres especiais).">?</button>
-            </label>
-  
-
-            <!-- Content Upload Necessity -->
-            <input type="hidden" name="foto_debatedor<?php echo $d ?>" class="foto_debatedor<?php echo $d ?>" value="">
-
-            <div class="hide preview-image foto_debatedor<?php echo $d ?>">
-              <img src="" >
-            </div>
+              <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Insira uma foto do debatedor(nome da imagem sem caracteres especiais).">?</button>            <!-- Content Upload Necessity -->
+              
+              <input type="hidden" name="foto_debatedor<?php echo $d ?>" class="foto_debatedor<?php echo $d ?>" value="">
+              <div class="hide preview-image foto_debatedor<?php echo $d ?>">
+                <img src="" >
+              </div>
           
             <!-- BTN UPLOAD -->
-            <div class="container">
+            <div class="container col-xs-10">
                 <div class="row" style="padding-top:10px;">
                     <div class="col-xs-2">
                         <button id="foto_debatedor<?php echo $d ?>" class="btn btn-large btn-primary btn-upload foto_debatedor<?php echo $d ?>">Nova Foto</button>
                     </div>
-                    <div class="col-xs-10">
+                    <div class="col-xs-4">
                       <div id="progressOuter" class="progress progress-striped active" style="display:none;">
                         <div id="progressBar" class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
                         </div>
@@ -570,7 +566,7 @@
                     </div>
                 </div>
                 <div class="row" style="padding-top:10px;">
-                    <div class="col-xs-10">
+                    <div class="col-xs-4">
                       <div id="msgBox">
                       </div>
                     </div>
@@ -581,11 +577,11 @@
 
           </div>
           <div class="col-md-12">
-            <label for="filmes">
+            <label for="minibio">
               Mini bio do debatedor
               <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Insira uma breve biografia do debatedor (1 ou 2 parágrafos)..">?</button>
             </label>
-            <textarea name="bibliografia_debatedor<?php echo $d ?>"></textarea>
+            <textarea name="bibliografia_debatedor<?php echo $d ?>" class="bibliografia_debatedor<?php echo $d ?>"></textarea>
           </div>
         </div>
       </div>
@@ -601,19 +597,19 @@
           </label>
           
           <!-- Content Upload Necessity -->
-          <input type="hidden" name="thumb-sessao" class="thumb-sessao " value="">
+          <input type="hidden" name="thumb-sessao" class="thumb-sessao" value="">
 
           <div class="hide preview-image thumb-sessao">
             <img src="" >
           </div>
         
           <!-- BTN UPLOAD -->
-          <div class="container">
+          <div class="container col-xs-10">
               <div class="row" style="padding-top:10px;">
                   <div class="col-xs-2">
                       <button id="upload-thumb" class="btn btn-large btn-primary btn-upload thumb-sessao">Nova Foto</button>
                   </div>
-                  <div class="col-xs-10">
+                  <div class="col-xs-4">
                     <div id="progressOuter" class="progress progress-striped active" style="display:none;">
                       <div id="progressBar" class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
                       </div>
@@ -621,7 +617,7 @@
                   </div>
               </div>
               <div class="row" style="padding-top:10px;">
-                  <div class="col-xs-10">
+                  <div class="col-xs-4">
                     <div id="msgBox">
                     </div>
                   </div>
@@ -692,7 +688,7 @@
           <label for="title">Nome do Cineclube 
             <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Digite o nome do cineclube.">?</button>
           </label>
-          <input type="text" name="title" value="<?php  echo $nome_cineclube ?>">
+          <input type="text" name="nome_cineclube" value="<?php  echo $nome_cineclube ?>">
         </div>
       </div>
       
@@ -885,12 +881,12 @@
           <input type="hidden" name="thumb_infos" class="thumb-cineclube" value="">
           
           <!-- BTN UPLOAD -->
-          <div class="container">
+          <div class="container col-xs-10">
               <div class="row" style="padding-top:10px;">
                   <div class="col-xs-2">
                       <button id="upload-thumb-cineclube" class="btn btn-large btn-primary btn-upload thumb-cineclube">Nova Foto</button>
                   </div>
-                  <div class="col-xs-10">
+                  <div class="col-xs-4">
                     <div id="progressOuter" class="progress progress-striped active" style="display:none;">
                       <div id="progressBar" class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
                       </div>
@@ -898,7 +894,7 @@
                   </div>
               </div>
               <div class="row" style="padding-top:10px;">
-                  <div class="col-xs-10">
+                  <div class="col-xs-4">
                     <div id="msgBox">
                     </div>
                   </div>

@@ -288,7 +288,9 @@ if( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] ) &&  $_POS
     $sessao_cancelada =  $_POST['sessao_cancelada'];
     $justificativa_nao =  trim(nl2br($_POST['justificativa_nao']));
 
-    //Sessao Realizada
+   /*
+    * Relatorio
+    */
     $pessoas_presentes =  $_POST['pessoas_presentes'];
     $relato =  trim(nl2br($_POST['relato']));
     $fetaria_prim =  $_POST['fetaria_prim'];
@@ -304,6 +306,54 @@ if( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] ) &&  $_POS
     $data_sessao = $_POST['data_sessao'];
     $divulgacao_opcional = $_POST['divulgacao_opcional'];
 
+    /*
+    * SESSAO
+    */
+    
+    $data =  $_POST['data'];
+    $horario =  $_POST['horario'];
+    $sessao_local =  $_POST['sessao_local'];   
+    $logradouro =  $_POST['logradouro'];
+    $numero =  $_POST['numero'];
+    $complemento =  $_POST['complemento'];
+    $cep =  $_POST['cep'];
+    $cidade =  $_POST['cidade'];
+    $bairro =  $_POST['bairro'];
+    $estado =  $_POST['estado'];
+    $requisito =  $_POST['requisito'];
+    $cineclube_nome =  $_POST['cineclube_nome'];
+    $cineclube_id =  $_POST['cineclube_id'];
+
+    /*
+     * CINECLUBE
+     */
+    $nome_cineclube =  $_POST['nome_cineclube'];
+    $nome_ceu =  $_POST['nome_ceu'];
+    $logradouro =  $_POST['logradouro'];
+    $numero =  $_POST['numero'];
+    $complemento =  $_POST['complemento'];
+    $cep =  $_POST['cep'];
+    $cidade =  $_POST['cidade'];
+    $bairro =  $_POST['bairro'];
+    $estado =  $_POST['estado'];
+    $capacidade =  $_POST['capacidade'];
+    $email_prin =  $_POST['email_prin'];
+    $email_secun =  $_POST['email_secun'];
+    $telefone_prin =  $_POST['telefone_prin'];
+    $telefone_secun =  $_POST['telefone_secun'];
+    $facebook =  $_POST['facebook'];
+    $twitter =  $_POST['twitter'];
+    $instagram =  $_POST['instagram'];
+    $arquivos =  $_POST['arquivos'];
+    $biografia =  trim(nl2br($_POST['biografia']));
+    $tags = $_POST['tags'];
+    $thumb_id = $_POST['thumb-sessao'];
+
+
+    /*
+    *  Relatorio
+    */
+
     // Add the content of the form to $post as an array
     $relatorio_sessao = array(
         'post_title'    => $title,
@@ -312,7 +362,10 @@ if( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] ) &&  $_POS
     );
 
     //save the new post
-    $pid = wp_insert_post($relatorio_sessao); 
+    $pid = wp_insert_post( $relatorio_sessao ); 
+
+    //Update Thumbanil
+    set_post_thumbnail( $pid, $thumb_id );
     
     //Update MetaBoxes 
     $prefix = 'rs_';
@@ -362,24 +415,9 @@ if( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] ) &&  $_POS
          }
     }
         
-     /*
-     * SESSAO
-     */
-    
-    //METABOXs
-    $data =  $_POST['data'];
-    $horario =  $_POST['horario'];
-    $sessao_local =  $_POST['sessao_local'];   
-    $logradouro =  $_POST['logradouro'];
-    $numero =  $_POST['numero'];
-    $complemento =  $_POST['complemento'];
-    $cep =  $_POST['cep'];
-    $cidade =  $_POST['cidade'];
-    $bairro =  $_POST['bairro'];
-    $estado =  $_POST['estado'];
-    $requisito =  $_POST['requisito'];
-    $cineclube_nome =  $_POST['cineclube_nome'];
-    $cineclube_id =  $_POST['cineclube_id'];
+    /*
+    * SESSAO
+    */
 
     //FOR FILMES
     for($i = 1; $i <= 16; $i++){
@@ -399,15 +437,9 @@ if( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] ) &&  $_POS
     //FOR DEBATEDORES
     for($i = 1; $i <= 5; $i++){
         $nome_debatedor[$i] =  $_POST['nome_debatedor'.$i];
-        $foto_debatedor[$i] =  $_POST['foto_debatedor'.$i];
         $bibliografia_debatedor[$i] =  trim(nl2br($_POST['bibliografia_debatedor'.$i]));
     }
     
-    //Update Thumbanil
-    if ( !empty( $_POST['thumb-sessao'] ) ){
-        $foto_eventoId = upload_image($_POST['thumb-sessao']);
-        set_post_thumbnail( $pid,  $foto_eventoId );
-    }
 
     //FOR DEBATEDORES FOTO
     for($i = 1; $i <= 5; $i++){
@@ -417,7 +449,6 @@ if( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] ) &&  $_POS
     }
 
     //Update MetaBoxes 
-    $prefix ='ss_';
     update_post_meta( $pid, $prefix.'data', $data );
     update_post_meta( $pid, $prefix.'horario', $horario );
     update_post_meta( $pid, $prefix.'sessao_local', $sessao_local );
@@ -460,35 +491,10 @@ if( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] ) &&  $_POS
         update_post_meta( $pid, $prefix.'bibliografia_debatedor'.$i , $bibliografia_debatedor[$i] );
     }
 
-
-
-
     /*
      * CINECLUBE
      */
-    //Campos Post
-    $title =  $_POST['title'];
-    $nome_ceu =  $_POST['nome_ceu'];
-    $logradouro =  $_POST['logradouro'];
-    $numero =  $_POST['numero'];
-    $complemento =  $_POST['complemento'];
-    $cep =  $_POST['cep'];
-    $cidade =  $_POST['cidade'];
-    $bairro =  $_POST['bairro'];
-    $estado =  $_POST['estado'];
-    $capacidade =  $_POST['capacidade'];
-    $email_prin =  $_POST['email_prin'];
-    $email_secun =  $_POST['email_secun'];
-    $telefone_prin =  $_POST['telefone_prin'];
-    $telefone_secun =  $_POST['telefone_secun'];
-    $facebook =  $_POST['facebook'];
-    $twitter =  $_POST['twitter'];
-    $instagram =  $_POST['instagram'];
-    $arquivos =  $_POST['arquivos'];
-    $biografia =  trim(nl2br($_POST['biografia']));
-    $tags = $_POST['tags'];
-    $thumb_infos = $_POST['thumb_infos'];
-
+    update_post_meta( $pid, $prefix.'cineclube_nome', $nome_cineclube  );
     update_post_meta( $pid, $prefix.'nome_ceu', $nome_ceu );
     update_post_meta( $pid, $prefix.'logradouro', $logradouro );
     update_post_meta( $pid, $prefix.'numero', $numero );
