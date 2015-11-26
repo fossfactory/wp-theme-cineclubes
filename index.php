@@ -112,7 +112,7 @@ get_header(); ?>
       <div class="container">
         <div class="row">
           <h1>
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>?page_id=138">Mapa da Rede: CEUs Cineclubes pelo Brasil</a>
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>cineclubes">Mapa da Rede: CEUs Cineclubes pelo Brasil</a>
           </h1>
           <hr>
         </div>
@@ -131,7 +131,7 @@ get_header(); ?>
            
         <div class="row">
           <h1>
-		 <a href="<?php echo esc_url( home_url( '/' ) ); ?>?page_id=110">Sessões da Rede: a telona dos cines!</a>            
+		 Sessões da Rede: a telona dos cines!            
           </h1>
           <div class="col-md-12">
             
@@ -199,19 +199,19 @@ get_header(); ?>
             <div class="col-md-4">
               <img src="<?php echo get_template_directory_uri(); ?>/images/foto07.png" class="center-block img-responsive">
               <h2 class="text-center">
-                <a href="<?php echo esc_url( home_url( '/' ) ); ?>?page_id=138"><?php echo $cineclubes; ?> Cineclubes</a>
+                <a href="<?php echo esc_url( home_url( '/' ) ); ?>cineclubes"><?php echo $cineclubes; ?> Cineclubes</a>
               </h2>
             </div>
             <div class="col-md-4">
               <img src="<?php echo get_template_directory_uri(); ?>/images/foto05.png" class="center-block img-responsive">
               <h2 class="text-center">
-                <a href="<?php echo esc_url( home_url( '/' ) ); ?>?page_id=110"><?php echo $contFilme; ?> Filmes exibidos</a>
+                <a href="<?php echo esc_url( home_url( '/' ) ); ?>sessoes-realizadas"><?php echo $contFilme; ?> Filmes exibidos</a>
               </h2>
             </div>
             <div class="col-md-4">
               <img src="<?php echo get_template_directory_uri(); ?>/images/foto04_numeros_01.jpg.png" class="center-block img-responsive">
               <h2 class="text-center">
-                <a href="<?php echo esc_url( home_url( '/' ) ); ?>?page_id=110"><?php echo $expectadores; ?> Espectadores</a>
+                <a href="<?php echo esc_url( home_url( '/' ) ); ?>sessoes-realizadas"><?php echo $expectadores; ?> Espectadores</a>
               </h2>
             </div>
           </div>
