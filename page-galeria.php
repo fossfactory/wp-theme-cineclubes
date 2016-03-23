@@ -10,84 +10,31 @@
  * @subpackage Twenty_Fifteen
  * @since Twenty Fifteen 1.0
  */
+
+
+
+/**
+*
+* A exibição da Galeria utiliza o Plugin "Ajax Load More" (https://wordpress.org/plugins/ajax-load-more/)
+* A página usada no loop (chamado pelo shortcode ajax_load_more) fica na pasta wp-content/pĺugins/ajax-load-more/core/repeater/default.php
+* O arquivo 'default.php' deve conter somente a seguinte linha de código:
+* <?php get_template_part( 'single-galeria'); ?>
+* O arquivo default.php também pode ser editado através do wp-admin
+* A edição de como cada item da galeria é exibido fica no arquivo single-galeria.php dentro deste tema
+*
+*/
  ?>
 <?php get_header(); ?>
 
 
-
 <div class="content-galeria">
-    <div class="container">
+    <div class="container">        
         <div class="row">
-
-    <?php 
-        
-        //Pegar todos os Post Publicados dos POSTYPES;
-        $args = array(
-            'post_parent' => 0,
-            'post_type'   => array('cineclube', 'sessao', 'relatorio_sessao'), 
-            'numberposts' => -1,
-            'post_status' => 'publish' 
-        ); 
-                    
-        $full_posts = get_children( $args );
-
-        foreach ( $full_posts as $post) { 
-              /*  echo "<pre>";
-                    print_r($post);
-                echo "</pre>";
-            */
-            $pdi =  $post->ID;
-            $post_title = $post->post_title;
-            $post_type = $post->post_type;
-            $url_thumb = wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); 
-  
-
-            //POST THUMBNAIL
-            if(!empty($url_thumb)){
-                echo '<div class="col-md-3" >';
-                echo '<a href="'.$url_thumb.'" data-toggle="lightbox" data-gallery="multiimages" data-title="'.$post_title.'">';
-                echo '<img src="'.$url_thumb.'" alt="'.$post_title.'" />';
-                echo '</a>';
-                echo '</div>';
-            }
-            
-            //FOTOS RELATORIO SESSAO
-            if($post_type == "relatorio_sessao"){
-                for($i = 1; $i <= 6; $i++){
-                   $foto = rwmb_meta( 'rs_foto_sessao'.$i, 'type=image', $pdi  );
-                    foreach ( $foto as $f ){ 
-                        if(!empty($f['url'])){
-                            echo '<div class="col-md-3" >';
-                            echo '<a href="'.$f['url'].'" data-toggle="lightbox" data-gallery="multiimages" data-title="'.$post_title.' ">';
-                            echo '<img src="'.$f['url'].'" alt="'.$post_title.'" />';
-                            echo '</a>';
-                            echo '</div>';
-                        }
-                    }
-                };
-            }
-            
-            //FOTOS DEBATEDORES
-            if($post_type == "sessao"){
-                for($d = 1; $d <= 5; $d++){
-                    $foto_debatedor = rwmb_meta( 'ss_foto_debatedor'.$d, 'type=image', $pdi  );
-                    foreach ( $foto_debatedor as $f ){ 
-                        if(!empty($f['url'])){
-                            echo '<div class="col-md-3" >';
-                            echo '<a href="'.$f['url'].'" data-toggle="lightbox" data-gallery="multiimages" data-title="'.$post_title.'">';
-                            echo '<img src="'.$f['url'].'" alt="'.$post_title.'" />';
-                            echo '</a>';
-                            echo '</div>';
-                        }
-                    }
-                }
-            }
-        }//FOR POSTS
-
-     ?>
-            
+            <?php echo do_shortcode('[ajax_load_more post_type="relatorio_sessao, sessao, cineclube" posts_per_page="24" button_label="Carregar mais imagens"]'); ?>
         </div>
     </div>
 </div>
+
+
 
 <?php get_footer(); ?>
