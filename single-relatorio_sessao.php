@@ -222,7 +222,7 @@ get_header(); ?>
 
                                           if(strlen($nome_debatedor) > 1){
                                 ?>
-                                            <li class="col-md-4">
+                                            <li>
                                                 <b><?php echo $nome_debatedor ?></b>
                                                 <br>
                                                 <div class="">

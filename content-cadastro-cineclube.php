@@ -53,14 +53,14 @@
 		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
 	</header><!-- .entry-header -->
 
-	<div class="entry-content">
-		<form id="form_cineclube" name="form_cineclube" method="post" action=""  enctype="multipart/form-data">
+	<div class="entry-content">		
+		<form id="form_cineclube" name="form_cineclube" method="post" action=""  class="form_obrigatorio"  enctype="multipart/form-data">
 			<div class="row">
 				<div class="col-md-12">
 					<label for="title">Nome do Cineclube 
 						<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Digite o nome do cineclube.">?</button>
 					</label>
-					<input type="text" name="title" value="<?php  echo $nome_cineclube ?>">
+					<input type="text" name="title"  value="<?php  echo $nome_cineclube ?>">
 				</div>
 			</div>
 			
@@ -88,7 +88,7 @@
 				<div class="col-md-12">
 					<label for="numero">Número<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Digite o número do endereço.">?</button>
 					</label>
-					<input type="text" name="numero" value="<?php  echo $numero ?>">
+					<input type="number" name="numero" value="<?php  echo $numero ?>">
 				</div>
 			</div>
 
@@ -96,7 +96,7 @@
 				<div class="col-md-12">
 					<label for="complemento">Complemento<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Se houver complementos ao endereço como número do bloco, quadra, ou outros tipos de complemento, digite aqui..">?</button>
 					</label>
-					<input type="text" name="complemento" value="<?php  echo $complemento ?>">
+					<input type="text" name="complemento" class="not-require" value="<?php  echo $complemento ?>">
 				</div>
 			</div>
 
@@ -156,7 +156,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<label for="cep" class="linha">CEP <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Digite o cep deste endereço.">?</button>
-						<input type="text" name="cep" value="<?php  echo $cep ?>">
+						<input type="number" name="cep" value="<?php  echo $cep ?>">
 					</label>
 				</div>
 			</div>
@@ -191,7 +191,7 @@
 				<div class="col-md-12">
 					<label for="email_secun">E-mail Secundario<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Digite aqui um segundo email de contato de seu cineclube.">?</button>
 					</label>
-					<input type="email" name="email_secun" value="<?php  echo $email_secun ?>">
+					<input type="email" name="email_secun"  class="not-require" value="<?php  echo $email_secun ?>">
 				</div>
 			</div>
 
@@ -207,7 +207,7 @@
 				<div class="col-md-12">
 					<label for="telefone_secun">Telefone Secundario<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Digite aqui o principal telefone de contato de seu cineclube.">?</button>
 					</label>
-					<input type="text" name="telefone_secun" value="<?php  echo $telefone_secun ?>">
+					<input type="text" name="telefone_secun" class="not-require" value="<?php  echo $telefone_secun ?>">
 				</div>
 			</div>
 
@@ -219,21 +219,21 @@
 				<div class="col-md-4">
 					<label for="facebook">Facebook<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Cole aqui a url para a página ou perfil do facebook de seu cineclube.">?</button>
 					</label>
-					<input type="text" value="<?php  echo $facebook ?>" name="facebook" >
+					<input class="not-require" type="text" value="<?php  echo $facebook ?>" name="facebook" >
 				</div>
 				<div class="col-md-4">
 					<label for="twitter">Twitter<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Cole aqui url para perfil do twitter do seu cineclube.">?</button>
 					</label>
-					<input type="text" value="<?php  echo $twitter ?>" name="twitter" >
+					<input  class="not-require" type="text" value="<?php  echo $twitter ?>" name="twitter" >
 				</div>
 				<div class="col-md-4">
 					<label for="instagram">Instagram<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Cole aqui a url para perfil do instagram do seu cineclube.">?</button>
 					</label>
-					<input type="text" value="<?php  echo $instagram ?>" name="instagram" >
+					<input class="not-require" type="text" value="<?php  echo $instagram ?>" name="instagram" >
 				</div>
 			</div>
 			
-			<div class="row">
+			<!--=div class="row">
 				<div class="col-md-12">
 					<label for="arquivos">O Cineclube consegue receber arquivos de filmes pela internet
 						<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Caso responda sim, dê orientações sobre isso no campo de biografia do cineclube.">?</button>
@@ -243,7 +243,7 @@
 					<label class="linha"><input type="radio" name="arquivos" value="nao" <?php echo $arquivos == "nao" ? "checked" : "" ?> > Não
 					</label>
 				</div>
-			</div>
+			</div-->
 
 			<div class="row">
 				<div class="col-md-12">
@@ -285,14 +285,6 @@
 						}//Verifica Thumnail
 					?>
 					</div>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col-md-12">
-					<label for="tags">Insira Tags de Pesquisa<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Escreva aqui todas as tags relacionadas ao seu cineclube, separando-as por vírgula.">?</button>
-					</label>
-					<input type="text" name="tags" id="tags" value="<?php  echo $tags?>"  tabindex="5" size="16" >
 				</div>
 			</div>
 

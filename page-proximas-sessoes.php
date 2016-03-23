@@ -20,19 +20,19 @@ get_header(); ?>
 <div class="section">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12">                
                 <ul class="media-list">
                     <?php
 
                     $paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
 
                     $args = array(
-                      'post_type' => 'sessao',
-                      'order' => 'DESC',
-                      'orderby' => 'meta_value',
-                      'meta_key' => 'ss_data',
-                      'posts_per_page' => 10,
-                      'paged' => $paged 
+                      'post_type'       => 'sessao',
+                      'order'           => 'DESC',
+                      'orderby'         => 'meta_value',
+                      'meta_key'        => 'ss_data',
+                      'posts_per_page'  => 10,
+                      'paged'           => $paged 
                       );
 
                     $loop_sessoes = new WP_Query( $args );
@@ -44,7 +44,7 @@ get_header(); ?>
                     $thumb_url = $thumb['0'];  
 
                     if(empty($thumb_url)){
-                      $thumb_url = "/wp-content/uploads/cineclube/sessao.png";
+                      $thumb_url = wp_upload_dir()['baseurl']."/cineclube/sessao.png";
                     }  
 
                       /**
@@ -52,10 +52,16 @@ get_header(); ?>
                       **/
                       $relato = rwmb_meta( 'ss_relato', 'type=text', $pdi  ); 
 
-                      $nome_ceu = rwmb_meta( 'ss_cineclube_nome', 'type=text', $pdi  );
+                      $nome_ceu     = rwmb_meta( 'ss_cineclube_nome', 'type=text', $pdi  );
                       $cineclube_id = rwmb_meta( 'ss_cineclube_id', 'type=text', $pdi  );
-                      $data = rwmb_meta( 'ss_data', 'type=text', $pdi  );
-                      $horario = rwmb_meta( 'ss_horario', 'type=text', $pdi  );
+                      try{
+                        $data       = new DateTime( rwmb_meta( 'ss_data', 'type=text', $pdi ) );
+                        $data       = $data->format('d/m/Y');
+                      }
+                      catch (Exception $e){
+                        $data       = rwmb_meta( 'ss_data', 'type=text', $pdi );
+                      }
+                      $horario      = rwmb_meta( 'ss_horario', 'type=text', $pdi  );
 
                       ?>
 

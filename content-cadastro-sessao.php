@@ -10,7 +10,7 @@
         ** Get MetasBoxs CINECLUBE
         **/
 		$logradouro = rwmb_meta( 'cb_logradouro', 'type=text', $user_meta_postid  );
-        $numero = rwmb_meta( 'cb_numero', 'type=text', $user_meta_postid  );
+        $numero 	= rwmb_meta( 'cb_numero', 'type=text', $user_meta_postid  );
         $complemento = rwmb_meta( 'cb_complemento', 'type=text', $user_meta_postid  );
         $bairro = rwmb_meta( 'cb_bairro', 'type=text', $user_meta_postid ); 
         $cidade = rwmb_meta( 'cb_cidade', 'type=text',$user_meta_postid  );
@@ -24,7 +24,17 @@
 	</header><!-- .entry-header -->
 
 	<div class="entry-content">
-		<form id="form_sessao" name="form_sessao" method="post" action="" enctype="multipart/form-data">
+	<?php 
+		global $current_user;
+		get_currentuserinfo();  
+		$args = array(
+		    'author'        =>  $current_user->ID, 
+		    'post_type'     =>  'cineclube',
+		 );
+		$current_user_cineclube = get_posts( $args );
+		if( count($current_user_cineclube) > 0){
+	?>
+		<form id="form_sessao" name="form_sessao"  class="form_obrigatorio" method="post" action="" enctype="multipart/form-data">
            <div class="row">
            		<div class="col-md-12">
 					<label for="nome_da_sessao">Nome da sessão
@@ -153,10 +163,17 @@
 		
            <div class="row">
            		<div class="col-md-12">
-					<label for="requisito">Sessão gratuita?<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Informe se a participação na sessão tem algum requisito de entrada. Ex.: um quilo de alimento.">?</button>
+					<label for="requisito">Sessão gratuita?
+						<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Informe se a participação na sessão tem algum requisito de entrada. Ex.: um quilo de alimento.">?</button>
 					</label>
-					<input type="text" name="requisito" value="">
+					<div class="col-md-2">
+						<label class="linha"><input type="radio" name="requisito_opt" value="Sim" class="requisito_opt"> Sim </label>
+						<label class="linha"><input type="radio" name="requisito_opt" value="Não" class="requisito_opt"> Não </label>
+						<label class="linha"><input type="radio" name="requisito_opt" value="Text" class="requisito_opt"> Outros: </label>
+					</div>
+					<input type="text" name="requisito" value="" class="not-require requisito hidden" />
           		</div>
+
            </div>
            <hr >
            <div class="row">
@@ -201,42 +218,49 @@
 									Nome do Filme
 									<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Nome do filme em português. Ex.: ‘O poderoso chefão’.">?</button>
 								</label>
-								<input text="text" name="nome_filme<?php echo $i ?>" >
+								<input text="text" <?php if ($i > 1) echo 'class="not-require" '; ?> name="nome_filme<?php echo $i ?>" >
 							</div>
 							<div class="col-md-12">
 								<label for="filmes">
 									Nome Original 
 									<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Nome original do filme. Ex.: ‘The Godfather’.">?</button>
 								</label>
-								<input text="text" name="nome_original<?php echo $i ?>" >
+								<input text="text" <?php if ($i > 1) echo 'class="not-require" '; ?>name="nome_original<?php echo $i ?>" >
 							</div>
 							<div class="col-md-12">
 								<label for="filmes">
 									Direção
 									<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Digite o(s) do(s) diretor(es) do filme(s). Ex.: ‘Francis Ford Coppola’..">?</button>
 								</label>
-								<input text="text" name="direcao<?php echo $i ?>" >
+								<input text="text" <?php if ($i > 1) echo 'class="not-require" '; ?>name="direcao<?php echo $i ?>" >
+							</div>
+							<div class="col-md-12">
+								<label for="filmes">
+									Duração
+									<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Digite a duração do filme em minutos. Ex.: 90">?</button>
+								</label>
+								<input text="text" <?php if ($i > 1) echo 'class="not-require" '; ?>type="number" maxlength="3" name="duracao<?php echo $i ?>" >
 							</div>
 							<div class="col-md-12">
 								<label for="filmes">
 									Ano
 									<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Ano de lançamento do filme. Ex.: 1972.">?</button>
 								</label>
-								<input text="text" name="ano<?php echo $i ?>" >
+								<input text="text" <?php if ($i > 1) echo 'class="not-require" '; ?>type="number" maxlength="4" name="ano<?php echo $i ?>" >
 							</div>
 							<div class="col-md-12">
 								<label for="filmes">
 									País
 									<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Pais(es) de produção/gravação do filme. Ex.: ‘Estados Unidos’.">?</button>
 								</label>
-								<input text="text" name="pais<?php echo $i ?>" >
+								<input text="text" <?php if ($i > 1) echo 'class="not-require" '; ?>name="pais<?php echo $i ?>" >
 							</div>
 							<div class="col-md-12">
 								<label for="filmes">
 									Idioma falado
 									<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Idioma original do filme. Ex.: ‘Inglês Americano’.">?</button>
 								</label>
-								<input text="text" name="idioma<?php echo $i ?>" >
+								<input text="text" <?php if ($i > 1) echo 'class="not-require" '; ?>name="idioma<?php echo $i ?>" >
 							</div>
 							<div class="col-md-12">
 								<label for="filmes">
@@ -252,19 +276,19 @@
 									Sinopse
 									<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Escreva uma breve sinopse do filme.">?</button>
 								</label>
-								<textarea name="sinopse<?php echo $i ?>"></textarea>
+								<textarea <?php if ($i > 1) echo 'class="not-require" '; ?>name="sinopse<?php echo $i ?>"></textarea>
 							</div>
 							<div class="col-md-12">
 								<label for="filmes">
 									Classificação indicativa
 									<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Informe a classificação indicativa do filme conforme legislação brasileira.">?</button>
 								</label>
-								<label class="linha"><input type="radio" name="classificacao<?php echo $i ?>" value="livre"> Livre para todas as idades</label>
-								<label class="linha"><input type="radio" name="classificacao<?php echo $i ?>" value="Não recomendado para menores de 10 anos"> Não recomendado para menores de 10 anos </label>
-								<label class="linha"><input type="radio" name="classificacao<?php echo $i ?>" value="Não recomendado para menores de 12 anos"> Não recomendado para menores de 12 anos </label>
-								<label class="linha"><input type="radio" name="classificacao<?php echo $i ?>" value="Não recomendado para menores de 14 anos"> Não recomendado para menores de 14 anos </label>
-								<label class="linha"><input type="radio" name="classificacao<?php echo $i ?>" value="Não recomendado para menores de 16 anos"> Não recomendado para menores de 16 anos </label>
-								<label class="linha"><input type="radio" name="classificacao<?php echo $i ?>" value="Não recomendado para menores de 18 anos"> Não recomendado para menores de 18 anos </label>
+								<label class="linha"><input <?php if ($i > 1) echo 'class="not-require" '; ?>type="radio" name="classificacao<?php echo $i ?>" value="livre"> Livre para todas as idades</label>
+								<label class="linha"><input <?php if ($i > 1) echo 'class="not-require" '; ?>type="radio" name="classificacao<?php echo $i ?>" value="Não recomendado para menores de 10 anos"> Não recomendado para menores de 10 anos </label>
+								<label class="linha"><input <?php if ($i > 1) echo 'class="not-require" '; ?>type="radio" name="classificacao<?php echo $i ?>" value="Não recomendado para menores de 12 anos"> Não recomendado para menores de 12 anos </label>
+								<label class="linha"><input <?php if ($i > 1) echo 'class="not-require" '; ?>type="radio" name="classificacao<?php echo $i ?>" value="Não recomendado para menores de 14 anos"> Não recomendado para menores de 14 anos </label>
+								<label class="linha"><input <?php if ($i > 1) echo 'class="not-require" '; ?>type="radio" name="classificacao<?php echo $i ?>" value="Não recomendado para menores de 16 anos"> Não recomendado para menores de 16 anos </label>
+								<label class="linha"><input <?php if ($i > 1) echo 'class="not-require" '; ?>type="radio" name="classificacao<?php echo $i ?>" value="Não recomendado para menores de 18 anos"> Não recomendado para menores de 18 anos </label>								
 							</div>
 						</div>
 					</div>
@@ -320,7 +344,7 @@
 							Nome do Debatedor
 							<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Informe o nome do(a) debatedor(a).">?</button>
 						</label>
-						<input text="text" name="nome_debatedor<?php echo $d ?>" >
+						<input text="text" class="not-require" name="nome_debatedor<?php echo $d ?>" >
 					</div>
 					<div class="col-md-12">
 						<label for="filmes">
@@ -365,7 +389,7 @@
 							Mini bio do debatedor
 							<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Insira uma breve biografia do debatedor (1 ou 2 parágrafos)..">?</button>
 						</label>
-						<textarea name="bibliografia_debatedor<?php echo $d ?>"></textarea>
+						<textarea class="not-require" name="bibliografia_debatedor<?php echo $d ?>"></textarea>
 					</div>
 				</div>
 			</div>
@@ -426,26 +450,25 @@
 			<input type="hidden" name="action" value="form_sessao" />
 			<?php wp_nonce_field( 'form_sessao' ); ?>
 
-			<?php 
-				global $current_user;
-				get_currentuserinfo();  
-
-				$args = array(
-				    'author'        =>  $current_user->ID, 
-				    'post_type'     =>  'cineclube',
-				 );
-
-				$current_user_cineclube = get_posts( $args );
-
-				if(count($current_user_cineclube) > 0){
-					$cineclube_title = $current_user_cineclube[0]->post_title;
-					$cineclube_pdi   = $current_user_cineclube[0]->ID;
-				}
+			<?php 				
+				$cineclube_title = $current_user_cineclube[0]->post_title;
+				$cineclube_pdi   = $current_user_cineclube[0]->ID;				
 			?>
 			<!--Vincula Cineclube -->
 			<input type="hidden" name="cineclube_nome" value="<?php echo $cineclube_title ?>" />
 			<input type="hidden" name="cineclube_id" value="<?php echo $cineclube_pdi ?>" />
 
 		</form>
+	<?php
+		}
+		else {
+	?>
+		<div class="alert alert-danger">
+			<p>Antes de inserir sessões, você deve cadastrar um Cineclube!</p>
+			<p>Você pode cadastrar um Cineclube clicando <a href="cadastro-de-cineclubes">aqui</a>.</p>
+		</div>
+	<?php
+		}
+	?>
 	</div><!-- .entry-content -->
 </article><!-- #post-## -->

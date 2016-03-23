@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Lato|Lato');
 
-li.debatedores {list-style:none;width:400px;float:left}
+li.debatedores {list-style:none;float:left}
 
 #bbpress-forums input, #bbpress-forums textarea {
 width:inherit;
@@ -1166,6 +1166,7 @@ textarea {
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
+  resize: vertical;
 }
 a {
   color: #337cbb;

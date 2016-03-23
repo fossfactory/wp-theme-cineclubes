@@ -1,23 +1,61 @@
 //Boostrap ToolTip
 $(function () {
   $('[data-toggle="tooltip"]').tooltip();
-})
+});
 
+
+//Deixa os campos de formulário obrigatórios
+$(document).ready(function(e){
+    $('.form_obrigatorio input, .form_obrigatorio textarea, .form_obrigatorio select')
+        .not('[type=submit], [type=hidden], [type=checkbox], .not-require').each(function(e){
+            $(this).prop('required', true);
+        });
+});
 
 //Campos Especiais Form
 webshims.setOptions('forms-ext', {types: 'date'});
 webshims.polyfill('forms forms-ext');
 
 //Forms PostTypes Cineclubes
-$(function () {
-    
+$(function () {    
+    //Cadastro de Sessão: Exibe/Inibe input de "Outros" em Sessão gratuita
+    $('.requisito_opt').on('change', function(e){
+        
+        if ( $(this).val() ==  'Text')
+            $('.requisito')
+                .removeClass('hidden')
+                .slideDown()
+                .val('')
+                .prop('required', true);
+        else 
+            $('.requisito')
+                .slideUp(400, function(e){
+                    $(this).val( $('.requisito_opt').val() );
+                })
+                .prop('required', false);
+    });
+
+    //Não permite repetir faixa etária primária/secundária
+    $('.fetaria_exc').on('change',function(e){
+        var exc     = $('.fetaria_exc[name="fetaria_' + ( ( $(this).attr('name') == 'fetaria_prim') ? 'segun' : 'prim' ) + '"]'),
+            that    = $(this);        
+        exc.each(function(e){                                            
+            $(this).prop('disabled', $(this).val() == that.val());                        
+        });
+    });
+
     //Show Filme
     $('.js-mostra-mais').on('click', function(e){
         e.preventDefault();
         for(var i = 1;  i <= 16 ; i++){
             var classe = 'js-filme'+i;
             if( $( this ).hasClass(classe) ){
-                $('div.'+classe).show();
+                $('div.'+classe).show();   
+                $('.'+classe+' input, .'+classe+' textarea')
+                    .not('[type=submit], [type=hidden]')
+                    .each(function(e){
+                        $(this).prop('required', true);
+                    });             
             }
         };
     });
@@ -29,6 +67,11 @@ $(function () {
             var classe = 'js-filme'+i;
             if( $( this ).hasClass(classe) ){
                 $('div.'+classe).hide();
+                $('.'+classe+' input, .'+classe+' textarea')
+                    .not('[type=submit], [type=hidden]')
+                    .each(function(e){
+                        $(this).prop('required', false);
+                    });
             }
         };
     });
@@ -41,6 +84,11 @@ $(function () {
             var classe = 'js-debatedor'+i;
             if( $( this ).hasClass(classe) ){
                 $('div.'+classe).show();
+                $('.'+classe+' input, .'+classe+' textarea')
+                    .not('[type=submit], [type=hidden]')
+                    .each(function(e){
+                        $(this).prop('required', true);
+                    });
             }
         };
     });
@@ -52,6 +100,11 @@ $(function () {
             var classe = 'js-debatedor'+i;
             if( $( this ).hasClass(classe) ){
                 $('div.'+classe).hide();
+                $('.'+classe+' input, .'+classe+' textarea')
+                    .not('[type=submit], [type=hidden]')
+                    .each(function(e){
+                        $(this).prop('required', false);
+                    });
             }
         };
     });
@@ -67,49 +120,54 @@ $(function () {
         var cep = $('.js-cep').val();
 
 
-        var sessao = $(this).val();
+        var sessao = $(this).val() != 'nao';
+        $('.logradouro').val(sessao ? logradouro : '').attr('disabled', sessao).attr('required', !sessao);
+        $('.numero').val(sessao ? numero : '').attr('disabled', sessao).attr('required', !sessao);
+        $('.complemento').val(sessao ? complemento : '').attr('disabled', sessao).attr('required', !sessao);
+        $('.bairro').val(sessao ? bairro : '').attr('disabled', sessao).attr('required', !sessao);
+        $('.cidade').val(sessao ? cidade : '').attr('disabled', sessao).attr('required', !sessao);
+        $('.estado').val(sessao ? estado : '').attr('disabled', sessao).attr('required', !sessao);
+        $('.cep').val(sessao ? cep : '').attr('disabled', sessao).attr('required', !sessao);
+
+        /*
         if(sessao == "nao"){
-            $('.logradouro').val(" ");
-            $('.logradouro').attr('disabled', false);
-            $('.numero').val(" ");
-            $('.numero').attr('disabled', false);
-            $('.complemento').val(" ");
-            $('.complemento').attr('disabled', false);
-            $('.bairro').val(" ");
-            $('.bairro').attr('disabled', false);
-            $('.cidade').val(" ");
-            $('.cidade').attr('disabled', false);
-            $('.estado').val(" ");
-            $('.estado').attr('disabled', false);
-            $('.cep').val(" ");
-            $('.cep').attr('disabled', false);
+            $('.logradouro').val(" ").attr('disabled', false);
+            $('.numero').val(" ").attr('disabled', false).;
+            $('.complemento').val(" ").attr('disabled', false).;
+            $('.bairro').val(" ").attr('disabled', false).;
+            $('.cidade').val(" ").attr('disabled', false).;
+            $('.estado').val(" ").attr('disabled', false).;
+            $('.cep').val(" ").attr('disabled', false).;
         }else{
-            $('.logradouro').val(logradouro);
-           // $('.logradouro').attr('disabled', true);
-            $('.numero').val(numero);
-            $('.numero').attr('disabled', true);
-            $('.complemento').val(complemento);
-            $('.complemento').attr('disabled', true);
-            $('.bairro').val(bairro);
-            $('.bairro').attr('disabled', true);
-            $('.cidade').val(cidade);
-            $('.cidade').attr('disabled', true);
-            $('.estado').val(estado);
-            $('.estado').attr('disabled', true);
-            $('.cep').val(cep);
-            $('.cep').attr('disabled', true);
-        }
+            $('.logradouro').val(logradouro).attr('disabled', true);
+            $('.numero').val(numero).attr('disabled', true).;
+            $('.complemento').val(complemento).attr('disabled', true).;
+            $('.bairro').val(bairro).attr('disabled', true).;
+            $('.cidade').val(cidade).attr('disabled', true).;
+            $('.estado').val(estado).attr('disabled', true).;
+            $('.cep').val(cep).attr('disabled', true).;
+        }*/
     });
 
      //Sessao Dentro do CINECLUBE
-    $('.havera_debate').on('click', function(){
-        var debate = $(this).val();
-        if(debate  == "sim"){
-            $('.debate-content').show();
-        }else{
-            $('.debate-content').hide();
-        }
-    });
+    $('.havera_debate').on('change', function(){        
+        if($(this).val() == "sim")
+            $('.debate-content')
+                .show()
+                .find('input.js-debatedor1')
+                .not('[type=submit], [type=checkbox], [type=hidden]')
+                .each(function(e){
+                    $(this).prop('required', true);
+                });
+        else
+            $('.debate-content')
+                .hide()
+                .find('input')
+                .not('[type=submit], [type=checkbox], [type=hidden]')
+                .each(function(e){
+                    $(this).prop('required', false);
+                });        
+    });    
 
     //pegar value Nome, Id Sessao, Form relatorio
     $('select.js-title-sessao').on('change', function(){
@@ -248,14 +306,21 @@ $(function () {
 
     //Validando Sessao Realizada??
     $('.js-sessaorealizada').on('change', function(){
-        var resultado = $(this).val();
-        if( resultado == "realizada"){
-            $('.js-sessao-cancelada').hide(100);
-            $('.js-sessao-realizada').show(100);
-        }else{
-            $('.js-sessao-realizada').hide(100);
-            $('.js-sessao-cancelada').show(100);
-        };
+        var realizada = $(this).val() == 'realizada';
+        $('.js-sessao-' + ( realizada ? 'cancelada' : 'realizada' ) )
+            .hide(100)
+            .find('input, textarea')
+            .not('[type=submit], [type=checkbox], [type=hidden]')
+            .each(function(e){
+                $(this).prop('required', false);
+            });
+        $('.js-sessao-' + ( realizada ? 'realizada' : 'cancelada' ) )
+            .show(100)
+            .find('input, textarea')
+            .not('[type=submit], [type=checkbox],  [type=hidden]')
+            .each(function(e){
+                $(this).prop('required', true);
+            });        
     });
 
     //LightBox Galeria
@@ -310,11 +375,9 @@ $(function () {
 
 
 //AJAXs
-$(function () {
-
+$(function () {        
     //AJAX CINECLUBE
-    $('#form_cineclube').submit(function( ){
-
+     $('#form_cineclube').submit(function(){                    
         var url_theme = theme.url;
 
         $('.loading').append("<img src='"+ url_theme +"/images/loading.gif'/>" );
@@ -373,7 +436,7 @@ $(function () {
         });
         
         return false;
-        
+
     });
 
 

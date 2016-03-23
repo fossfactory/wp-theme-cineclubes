@@ -33,7 +33,7 @@ get_header(); ?>
             $thumb_url = $thumb['0']; 
 
              if(empty($thumb_url)){
-              $thumb_url = "/wp-content/uploads/cineclube/sessao.png";
+              $thumb_url = wp_upload_dir()['baseurl'] ."/cineclube/sessao.png";
             }
 
         
@@ -94,10 +94,26 @@ get_header(); ?>
                                                 $nome_filme = rwmb_meta( 'ss_nome_filme'.$i, 'type=text', $pdi  );
                                                 $nome_original = rwmb_meta( 'ss_nome_original'.$i, 'type=text', $pdi  ); 
                                                 $direcao = rwmb_meta( 'ss_direcao'.$i, 'type=text', $pdi  );
+                                                $duracao = rwmb_meta( 'ss_duracao'.$i, 'type=text', $pdi  );
                                                 $ano = rwmb_meta( 'ss_ano'.$i, 'type=text', $pdi  );
                                                 $pais = rwmb_meta( 'ss_pais'.$i, 'type=text', $pdi  );
-                                                $idioma = rwmb_meta( 'ss_idioma'.$i, 'type=text', $pdi  );
-                                                $leg_dub = implode( ', ', rwmb_meta( 'ss_leg_dub'.$i, 'type=checkbox_list' , $pdi  ));
+                                                $idioma = rwmb_meta( 'ss_idioma'.$i, 'type=text', $pdi  );                                                
+                                                $leg_dub = '';
+                                                foreach ( rwmb_meta( 'ss_leg_dub'.$i, 'type=checkbox_list' , $pdi  ) as $leg) {
+                                                  $leg_dubs        = array();
+                                                  switch ($leg) {
+                                                    case 'legendado':
+                                                      array_push($leg_dubs, 'Legendado');
+                                                      break;
+                                                    case 'dublado':
+                                                      array_push($leg_dubs, 'Dublado');
+                                                      break;
+                                                    case 'portugues':
+                                                      array_push($leg_dubs, 'Áudio Original em Português');                                                      
+                                                      break; 
+                                                  }
+                                                  $leg_dub = implode( ', ', $leg_dubs);
+                                                }
                                                 $sinopse = rwmb_meta( 'ss_sinopse'.$i, 'type=text', $pdi  );
                                                 $minibio = rwmb_meta( 'ss_minibio'.$i, 'type=text', $pdi  );
                                                 $classificacao = rwmb_meta( 'ss_classificacao'.$i, 'type=text', $pdi  );
@@ -108,10 +124,17 @@ get_header(); ?>
                                                       <b><?php echo $nome_filme ?></b><br />
                                                       <strong>Nome Original:</strong> <?php echo $nome_original ?><br />
                                                       <strong>Direção:</strong> <?php echo $direcao ?><br />
+                                                      <?php 
+                                                        if (!empty($duracao))
+                                                        echo '<strong>Duração:</strong> '. $duracao .'<br />';
+                                                      ?>
                                                       <strong>Ano:</strong> <?php echo $ano ?><br />
                                                       <strong>País:</strong> <?php echo $pais ?><br />
                                                       <strong>Idioma falado:</strong> <?php echo $idioma ?><br />
-                                                      <strong>Legendado e/ou Dublabo:</strong> <?php echo $leg_dub ?><br />
+                                                      <?php 
+                                                        if ( !empty($leg_dub) )
+                                                          echo '<strong>Legendado e/ou Dublabo:</strong> '.$leg_dub.'<br />'
+                                                      ?>
                                                       <b>Sinopse:</b> <i><?php echo $sinopse ?></i><br />
                                                       <b>Classificação:</b> <?php echo $classificacao ?>
                                                 </li>
@@ -138,7 +161,7 @@ get_header(); ?>
                                                             <li class="debatedores">
                                                                 <b><?php echo $nome_debatedor ?></b>
                                                                 <br>
-                                                                <div class="col-md-3">
+                                                                <div class="col-md-12">
                                                                     <?php 
                                                                         foreach ( $foto_debatedor as $f ){ 
                                                                             echo "<img src='".$f['url']."' class='img-responsive'>";

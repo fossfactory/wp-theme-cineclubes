@@ -194,7 +194,10 @@ get_header(); ?>
                     </div>
                   <div class="col-md-8 text">
                       <h2><?php echo  substr(get_the_title(), 0, 100); ?></h2>
-                      <p><?php echo substr($biografia, 0, 300); ?> ...</p>
+                      <p><?php 
+                        echo substr($biografia, 0, 300); 
+                        if ( strlen($biografia) > 300 )  echo ' ...';
+                      ?></p>
                   </div>
                 </a>
               </div>

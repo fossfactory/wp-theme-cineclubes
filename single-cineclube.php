@@ -20,7 +20,7 @@ get_header(); ?>
         $thumb_url = $thumb['0']; 
 
          if(empty($thumb_url)){
-            $thumb_url = "/wp-content/uploads/cineclube/cineclube.jpg";
+            $thumb_url = wp_upload_dir()['baseurl']. "/cineclube/sessao.png";
           }
 
           /**
@@ -138,6 +138,7 @@ get_header(); ?>
                   </h3>
                 </div>
               </div>
+              <?php if( $instagram || $twitter || $facebook ){ ?>
               <div class="col-md-7">
                 <div class="cineLocalizacao">
                   <h2>Redes Sociais</h2><br>
@@ -146,21 +147,21 @@ get_header(); ?>
                         if(!empty($instagram)){
                       ?>
                     <div class="col-xs-1 text-center">
-                      <a href="http://<?php echo $instagram ?>" target="_blank"><i class="fa fa-3x fa-fw fa-instagram"></i></a>
+                      <a href="<?php echo $instagram ?>" target="_blank"><i class="fa fa-3x fa-fw fa-instagram"></i></a>
                     </div>
                     <?php 
                       }
                       if(!empty($twitter)){
                     ?>
                     <div class="col-xs-1">
-                      <a href="http://<?php echo $twitter ?>" target="_blank"><i class="fa fa-3x fa-fw fa-twitter"></i></a>
+                      <a href="<?php echo $twitter ?>" target="_blank"><i class="fa fa-3x fa-fw fa-twitter"></i></a>
                     </div>
                     <?php 
                       }
                       if(!empty($facebook)){
                     ?>
                     <div class="col-xs-1">
-                      <a href="http://<?php echo $facebook ?>" target="_blank"><i class="fa fa-3x fa-facebook fa-fw"></i></a>
+                      <a href="<?php echo $facebook ?>" target="_blank"><i class="fa fa-3x fa-facebook fa-fw"></i></a>
                     </div>
                     <?php
                       }
@@ -168,6 +169,7 @@ get_header(); ?>
                   </div>
                 </div>
               </div>
+              <?php } ?>
             </div>
           </div>
         </div>
@@ -327,10 +329,11 @@ get_header(); ?>
                               $thumb = wp_get_attachment_image_src( get_post_thumbnail_id($pdi_relatorio), 'full' );
                               $thumb_url = $thumb['0'];    
 
+
                               /**
                               ** Get MetasBoxs
                               **/
-                              $relato = rwmb_meta( 'rs_relato', 'type=text', $pdi_sessao  ); 
+                              $relato = rwmb_meta( 'rs_relato', 'type=text', $pdi_relatorio  ); 
                               $nome_ceu = rwmb_meta( 'rs_cineclube_nome', 'type=text', $pdi_relatorio  );
                               $data = rwmb_meta( 'rs_data_sessao', 'type=text', $pdi_relatorio  );
 
@@ -347,7 +350,7 @@ get_header(); ?>
                               $thumb_url = $thumb['0']; 
 
                               if(empty($thumb_url)){
-                                    $thumb_url = "/wp-content/uploads/cineclube/sessao.png";
+                                    $thumb_url = wp_upload_dir()['baseurl']."/cineclube/sessao.png";
                               }
                               
                               //If Valida relatorio com cineclube
