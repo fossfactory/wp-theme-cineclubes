@@ -180,23 +180,5 @@ function cineclubes_register_meta_boxes( $meta_boxes )
         )
     );
 
-    // Consegue receber arquivos de filmes pela internet?
-    $meta_boxes[] = array(
-        'id'       => 'enviar_arquivos',
-        'title'    => 'Consegue receber arquivos de filmes pela internet?',
-        'pages'    => array('cineclube'),
-        'fields' => array(
-            array(
-                'name' => 'Consegue receber arquivos de filmes pela internet?',
-                'id'   => $prefix . 'arquivos',
-                'type' => 'radio',
-                'options' => array(
-                    'sim' => 'Sim',
-                    'nao' => 'Não',
-                )
-            ),
-        )
-    );
-
     return $meta_boxes;
 }

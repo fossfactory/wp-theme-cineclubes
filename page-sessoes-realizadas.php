@@ -48,7 +48,13 @@ get_header(); ?>
                           **/
                           $relato = rwmb_meta( 'rs_relato', 'type=text', $pdi  ); 
                           $nome_ceu = rwmb_meta( 'rs_cineclube_nome', 'type=text', $pdi  );
-                          $data = rwmb_meta( 'rs_data_sessao', 'type=text', $pdi  );
+                          try{
+                            $data       = new DateTime( rwmb_meta( 'rs_data_sessao', 'type=text', $pdi  ) );
+                            $data       = $data->format('d/m/Y');
+                          }
+                          catch (Exception $e){
+                            $data       = rwmb_meta( 'rs_data_sessao', 'type=text', $pdi  );
+                          }
                           $horario = rwmb_meta( 'rs_horario', 'type=text', $pdi  );
 
                           //Relatorio Vinculado com Sessao por ID SESSAO

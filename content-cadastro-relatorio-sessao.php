@@ -3,24 +3,27 @@
 	<?php
       global $current_user;
 		  
-      $args = array(
-        'post_type' => 'sessao',
-        'posts_per_page' => -1,
-        'author' => $current_user->ID,
+      $args = array(        
+        'post_type'       => 'sessao',
+        'posts_per_page'  => -1,
+        'author'          => $current_user->ID        
       );
 
       $loop_sessoes = new WP_Query( $args );
       
       $cont = 0;
-      while ( $loop_sessoes->have_posts() ) : $loop_sessoes->the_post();
-        $relatorio_id = rwmb_meta( 'ss_id_relatorio', 'type=text', $pdi[$cont]  );
+      while ( $loop_sessoes->have_posts() ) {
+        $loop_sessoes->the_post(); 
+        $relatorio_id = rwmb_meta( 'ss_id_relatorio', 'type=text', $loop_sessoes->ID );
         if( empty( $relatorio_id ) ){
           $pdi[$cont] = $post->ID;
           $title[$cont] = get_the_title();
           $data_sessao[$cont] = rwmb_meta( 'ss_data', 'type=text', $pdi[$cont]  );
           $cont++;
         }
-      endwhile;
+       
+      };
+
 	?>
 
 	<header class="entry-header">
@@ -28,7 +31,8 @@
 	</header><!-- .entry-header -->
   
 	<div class="entry-content">
-		<form id="form_form_relatorio" name="form_form_relatorio" method="post" action="" enctype="multipart/form-data">
+  <?php if ($cont > 0) { ?>
+		<form id="form_form_relatorio" class="form_obrigatorio" name="form_form_relatorio" method="post" action="" enctype="multipart/form-data">
           <div class="row">
             <div class="col-md-12">
     					<label for="nome_da_sessao">Nome da sessão
@@ -121,7 +125,7 @@
       			</div>
             <div class="row">
               <div class="col-md-12">
-                <label for="relato">Foi Realizado outro tipo de divulgação não listado acima?Qual?
+                <label for="relato">Foi Realizado outro tipo de divulgação não listado acima? Qual?
                   <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Digite o nome do cineclube.">?</button>
                 </label>
                 <input type="text" name="divulgacao_opcional">
@@ -142,10 +146,10 @@
           						Selecione primeira faixa etária em maioria durante a sessão
                        <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Digite o nome do cineclube.">?</button>
           					</label>
-                    <label class="linha"><input type="radio" name="fetaria_prim" value="crianca"> Criança (0 a 14)</label>
-                    <label class="linha"><input type="radio" name="fetaria_prim" value="jovem"> Jovem (15 a 29 anos)</label>
-                    <label class="linha"><input type="radio" name="fetaria_prim" value="adulto"> Adulto (30 e 59 anos)</label>
-                    <label class="linha"><input type="radio" name="fetaria_prim" value="idoso"> Idoso (60 ou mais)</label>
+                    <label class="linha"><input class="fetaria_exc" type="radio" name="fetaria_prim" value="crianca"> Criança (0 a 14)</label>
+                    <label class="linha"><input class="fetaria_exc" type="radio" name="fetaria_prim" value="jovem"> Jovem (15 a 29 anos)</label>
+                    <label class="linha"><input class="fetaria_exc" type="radio" name="fetaria_prim" value="adulto"> Adulto (30 e 59 anos)</label>
+                    <label class="linha"><input class="fetaria_exc" type="radio" name="fetaria_prim" value="idoso"> Idoso (60 ou mais)</label>
       				</div>
       			</div>
             <div class="row">
@@ -154,10 +158,10 @@
                         Selecione segunda faixa etária em maioria durante a sessão
                          <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Digite o nome do cineclube.">?</button>
                     </label>
-                    <label class="linha"><input type="radio" name="fetaria_segun" value="crianca"> Criança (0 a 14)</label>
-                    <label class="linha"><input type="radio" name="fetaria_segun" value="jovem"> Jovem (15 a 29 anos)</label>
-                    <label class="linha"><input type="radio" name="fetaria_segun" value="adulto"> Adulto (30 e 59 anos)</label>
-                    <label class="linha"><input type="radio" name="fetaria_segun" value="idoso"> Idoso (60 ou mais)</label>
+                    <label class="linha"><input class="fetaria_exc" type="radio" name="fetaria_segun" value="crianca"> Criança (0 a 14)</label>
+                    <label class="linha"><input class="fetaria_exc" type="radio" name="fetaria_segun" value="jovem"> Jovem (15 a 29 anos)</label>
+                    <label class="linha"><input class="fetaria_exc" type="radio" name="fetaria_segun" value="adulto"> Adulto (30 e 59 anos)</label>
+                    <label class="linha"><input class="fetaria_exc" type="radio" name="fetaria_segun" value="idoso"> Idoso (60 ou mais)</label>
                 </div>
             </div>
 
@@ -242,7 +246,7 @@
 			          	<label class="linha"><input type="radio" name="atividade_programada" value="sim" > Sim</label> 
                   <label class="linha"><input type="radio" name="atividade_programada" value="nao" > Não</label> 
                   <label>Se sim conte um pouco <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Digite o nome do cineclube.">?</button>
-                   <br ><textarea name="atividade_programada_desc" rows="8" cols="40"></textarea></label>
+                   <br ><textarea name="atividade_programada_desc" class="not-require" rows="8" cols="40"></textarea></label>
       				</div>
       			</div>
             <div class="row">
@@ -259,7 +263,7 @@
           <div class="row">
             <div class="col-md-12">
           <label for="data" class="linha">
-            Data em que será realizada a sessão 
+            Data em que a Sessão foi realizada
             <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Escolha a data em que a sessão será realizada.">?</button>
             <input type="date" name="data" class="data_sessao" min="2011-01-01" value="">
           </label>
@@ -304,7 +308,7 @@
         <div class="col-md-12">
           <label for="complemento">Complemento<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Se houver complementos ao endereço como número do bloco, quadra, ou outros tipos de complemento, digite aqui..">?</button>
           </label>
-          <input type="text" name="complemento" value="<?php  echo $complemento ?>" class="complemento" disabled="disabled">
+          <input type="text" name="complemento" value="<?php  echo $complemento ?>" class="not-require complemento" disabled="disabled">
           <input type="hidden" value="<?php  echo $complemento ?>" class="js-complemento">
         </div>
       </div>
@@ -375,16 +379,23 @@
         </div>
           <div class="row">
               <div class="col-md-12">
-          <label for="requisito">Sessão gratuita?<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Informe se a participação na sessão tem algum requisito de entrada. Ex.: um quilo de alimento.">?</button>
+          <label for="requisito">Sessão gratuita?
+            <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Informe se a participação na sessão tem algum requisito de entrada. Ex.: um quilo de alimento.">?</button>
           </label>
-          <input type="text" name="requisito" value="" class="requisito">
+          <div class="col-md-2">
+            <label class="linha"><input type="radio" name="requisito_opt" value="Sim" class="requisito_opt"> Sim </label>
+            <label class="linha"><input type="radio" name="requisito_opt" value="Não" class="requisito_opt"> Não </label>
+            <label class="linha"><input type="radio" name="requisito_opt" value="Text" class="requisito_opt"> Outros: </label>
+          </div>
+          <input type="text" name="requisito" value="" class="not-require requisito hidden" />
               </div>
+
            </div>
            <hr >
            <div class="row">
         <div class="col-md-12">
           <label for="filmes">
-            Filmes a serem exibidos 
+            Filmes exibidos 
             <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Informe se a participação na sessão tem algum requisito de entrada. Ex.: um quilo de alimento.">?</button>
           </label>
         </div>
@@ -392,7 +403,6 @@
            <?php 
         //FOR FILMES
           for($i = 1; $i <= 16; $i++){
-            
             $classe = "js-filme".$i;
             $btn_mais = "js-filme".($i + 1);
             $btn_menos = "js-filme".$i;
@@ -423,42 +433,50 @@
                   Nome do Filme
                   <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Nome do filme em português. Ex.: ‘O poderoso chefão’.">?</button>
                 </label>
-                <input text="text" name="nome_filme<?php echo $i ?>"  class="nome_filme<?php echo $i ?>">
+                <!--here <?php if ($i > 1) echo 'class="not-require" '; ?>  -->
+                <input text="text" name="nome_filme<?php echo $i ?>" class="nome_filme<?php echo $i; if ($i > 1) echo ' not-require'; ?>">
               </div>
               <div class="col-md-12">
                 <label for="filmes">
                   Nome Original 
                   <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Nome original do filme. Ex.: ‘The Godfather’.">?</button>
                 </label>
-                <input text="text" name="nome_original<?php echo $i ?>"  class="nome_original<?php echo $i ?>">
+                <input text="text" name="nome_original<?php echo $i ?>"  class="nome_original<?php echo $i; if ($i > 1) echo ' not-require'; ?>">
               </div>
               <div class="col-md-12">
                 <label for="filmes">
                   Direção
                   <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Digite o(s) do(s) diretor(es) do filme(s). Ex.: ‘Francis Ford Coppola’..">?</button>
                 </label>
-                <input text="text" name="direcao<?php echo $i ?>" class="direcao<?php echo $i ?>">
+                <input text="text" name="direcao<?php echo $i ?>" class="direcao<?php echo $i; if ($i > 1) echo ' not-require'; ?>">
+              </div>
+              <div class="col-md-12">
+                <label for="filmes">
+                  Duração
+                  <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Digite a duração do filme em minutos. Ex.: 90">?</button>
+                </label>
+                <input text="text" type="number" <?php if ($i > 1) echo 'class="not-require"'; ?>name="duracao<?php echo $i ?>" >
               </div>
               <div class="col-md-12">
                 <label for="filmes">
                   Ano
                   <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Ano de lançamento do filme. Ex.: 1972.">?</button>
                 </label>
-                <input text="text" name="ano<?php echo $i ?>" class="ano<?php echo $i ?>" >
+                <input type="number" name="ano<?php echo $i ?>" class="ano<?php echo $i; if ($i > 1) echo ' not-require'; ?>" >
               </div>
               <div class="col-md-12">
                 <label for="filmes">
                   País
                   <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Pais(es) de produção/gravação do filme. Ex.: ‘Estados Unidos’.">?</button>
                 </label>
-                <input text="text" name="pais<?php echo $i ?>" class="pais<?php echo $i ?>">
+                <input text="text" name="pais<?php echo $i ?>" class="pais<?php echo $i; if ($i > 1) echo ' not-require'; ?>">
               </div>
               <div class="col-md-12">
                 <label for="filmes">
                   Idioma falado
                   <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Idioma original do filme. Ex.: ‘Inglês Americano’.">?</button>
                 </label>
-                <input text="text" name="idioma<?php echo $i ?>" class="idioma<?php echo $i ?>">
+                <input text="text" name="idioma<?php echo $i ?>" class="idioma<?php echo $i; if ($i > 1) echo ' not-require'; ?>">
               </div>
               <div class="col-md-12">
                 <label for="filmes">
@@ -474,19 +492,19 @@
                   Sinopse
                   <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Escreva uma breve sinopse do filme.">?</button>
                 </label>
-                <textarea name="sinopse<?php echo $i ?>" class="sinopse<?php echo $i ?>"></textarea>
+                <textarea name="sinopse<?php echo $i ?>" class="sinopse<?php echo $i; if ($i > 1) echo ' not-require';?>"></textarea>
               </div>
               <div class="col-md-12">
                 <label for="filmes">
                   Classificação indicativa
                   <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Informe a classificação indicativa do filme conforme legislação brasileira.">?</button>
                 </label>
-                <label class="linha"><input type="radio" name="classificacao<?php echo $i ?>" class="classificacao<?php echo $i ?>" value="livre"> Livre para todas as idades</label>
-                <label class="linha"><input type="radio" name="classificacao<?php echo $i ?>" class="classificacao<?php echo $i ?>" value="Não recomendado para menores de 10 anos"> Não recomendado para menores de 10 anos </label>
-                <label class="linha"><input type="radio" name="classificacao<?php echo $i ?>" class="classificacao<?php echo $i ?>" value="Não recomendado para menores de 12 anos"> Não recomendado para menores de 12 anos </label>
-                <label class="linha"><input type="radio" name="classificacao<?php echo $i ?>" class="classificacao<?php echo $i ?>" value="Não recomendado para menores de 14 anos"> Não recomendado para menores de 14 anos </label>
-                <label class="linha"><input type="radio" name="classificacao<?php echo $i ?>" class="classificacao<?php echo $i ?>" value="Não recomendado para menores de 16 anos"> Não recomendado para menores de 16 anos </label>
-                <label class="linha"><input type="radio" name="classificacao<?php echo $i ?>" class="classificacao<?php echo $i ?>" value="Não recomendado para menores de 18 anos"> Não recomendado para menores de 18 anos </label>
+                <label class="linha"><input type="radio" name="classificacao<?php echo $i ?>" class="classificacao<?php echo $i; if ($i > 1) echo ' not-require'; ?>" value="livre"> Livre para todas as idades</label>
+                <label class="linha"><input type="radio" name="classificacao<?php echo $i ?>" class="classificacao<?php echo $i; if ($i > 1) echo ' not-require'; ?>" value="Não recomendado para menores de 10 anos"> Não recomendado para menores de 10 anos </label>
+                <label class="linha"><input type="radio" name="classificacao<?php echo $i ?>" class="classificacao<?php echo $i; if ($i > 1) echo ' not-require'; ?>" value="Não recomendado para menores de 12 anos"> Não recomendado para menores de 12 anos </label>
+                <label class="linha"><input type="radio" name="classificacao<?php echo $i ?>" class="classificacao<?php echo $i; if ($i > 1) echo ' not-require'; ?>" value="Não recomendado para menores de 14 anos"> Não recomendado para menores de 14 anos </label>
+                <label class="linha"><input type="radio" name="classificacao<?php echo $i ?>" class="classificacao<?php echo $i; if ($i > 1) echo ' not-require'; ?>" value="Não recomendado para menores de 16 anos"> Não recomendado para menores de 16 anos </label>
+                <label class="linha"><input type="radio" name="classificacao<?php echo $i ?>" class="classificacao<?php echo $i; if ($i > 1) echo ' not-require'; ?>" value="Não recomendado para menores de 18 anos"> Não recomendado para menores de 18 anos </label>
               </div>
             </div>
           </div>
@@ -499,7 +517,7 @@
         <div class="col-md-12">
           <h2>Debate</h2>
           <label for="debate">
-            Haverá debate?
+            Houve debate?
             <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Informe se haverá debate antes ou após exibição dos filme. Caso haja, preencha com dados do(s) debatedor(es).">?</button>
           </label>
           <label class="linha">
@@ -510,7 +528,7 @@
           </label>
         </div>
       </div>
-      <div class="debate-content">
+      <div class="debate-content"
        <?php 
         //FOR DEBATE
           for($d = 1; $d <= 5; $d++){
@@ -540,14 +558,14 @@
               Nome do Debatedor
               <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Informe o nome do(a) debatedor(a).">?</button>
             </label>
-            <input text="text" name="nome_debatedor<?php echo $d ?>" class="nome_debatedor<?php echo $d ?>">
+            <input text="text" name="nome_debatedor<?php echo $d ?>" class="not-require nome_debatedor<?php echo $d ?>">
           </div>
           <div class="col-md-12">
             <label for="filmes">
               Foto Debatedor
               <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Insira uma foto do debatedor(nome da imagem sem caracteres especiais).">?</button>            <!-- Content Upload Necessity -->
               
-              <input type="hidden" name="foto_debatedor<?php echo $d ?>" class="foto_debatedor<?php echo $d ?>" value="">
+              <input type="hidden" name="foto_debatedor<?php echo $d ?>" class="not-require foto_debatedor<?php echo $d ?>" value="">
               <div class="hide preview-image foto_debatedor<?php echo $d ?>">
                 <img src="" >
               </div>
@@ -581,7 +599,7 @@
               Mini bio do debatedor
               <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Insira uma breve biografia do debatedor (1 ou 2 parágrafos)..">?</button>
             </label>
-            <textarea name="bibliografia_debatedor<?php echo $d ?>" class="bibliografia_debatedor<?php echo $d ?>"></textarea>
+            <textarea name="bibliografia_debatedor<?php echo $d ?>" class="not-require bibliografia_debatedor<?php echo $d ?>"></textarea>
           </div>
         </div>
       </div>
@@ -722,7 +740,7 @@
 
       <div class="row">
         <div class="col-md-12">
-          <label for="complemento">Complemento<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Se houver complementos ao endereço como número do bloco, quadra, ou outros tipos de complemento, digite aqui..">?</button>
+          <label for="complemento">Complemento<button type="button" class="not-require infos" data-toggle="tooltip" data-placement="top" title="Se houver complementos ao endereço como número do bloco, quadra, ou outros tipos de complemento, digite aqui..">?</button>
           </label>
           <input type="text" name="complemento" value="<?php  echo $complemento ?>">
         </div>
@@ -819,7 +837,7 @@
         <div class="col-md-12">
           <label for="email_secun">E-mail Secundario<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Digite aqui um segundo email de contato de seu cineclube.">?</button>
           </label>
-          <input type="email" name="email_secun" value="<?php  echo $email_secun ?>">
+          <input type="email"class="not-require" name="email_secun" value="<?php  echo $email_secun ?>">
         </div>
       </div>
 
@@ -833,9 +851,9 @@
 
       <div class="row">
         <div class="col-md-12">
-          <label for="telefone_secun">Telefone Secundario<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Digite aqui o principal telefone de contato de seu cineclube.">?</button>
+          <label for="telefone_secun">Telefone Secundario<button type="button" class="not-require infos" data-toggle="tooltip" data-placement="top" title="Digite aqui o principal telefone de contato de seu cineclube.">?</button>
           </label>
-          <input type="text" name="telefone_secun" value="<?php  echo $telefone_secun ?>">
+          <input type="text" name="telefone_secun" class="not-require" value="<?php  echo $telefone_secun ?>">
         </div>
       </div>
 
@@ -847,31 +865,19 @@
         <div class="col-md-4">
           <label for="facebook">Facebook<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Cole aqui a url para a página ou perfil do facebook de seu cineclube.">?</button>
           </label>
-          <input type="text" value="<?php  echo $facebook ?>" name="facebook" >
+          <input type="text" value="<?php  echo $facebook ?>" name="facebook" class="not-require">
         </div>
         <div class="col-md-4">
           <label for="twitter">Twitter<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Cole aqui url para perfil do twitter do seu cineclube.">?</button>
           </label>
-          <input type="text" value="<?php  echo $twitter ?>" name="twitter" >
+          <input type="text" class="not-require" value="<?php  echo $twitter ?>" name="twitter" >
         </div>
         <div class="col-md-4">
           <label for="instagram">Instagram<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Cole aqui a url para perfil do instagram do seu cineclube.">?</button>
           </label>
-          <input type="text" value="<?php  echo $instagram ?>" name="instagram" >
+          <input type="text" class="not-require" value="<?php  echo $instagram ?>" name="instagram" >
         </div>
-      </div>
-      
-      <div class="row">
-        <div class="col-md-12">
-          <label for="arquivos">O Cineclube consegue receber arquivos de filmes pela internet
-            <button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Caso responda sim, dê orientações sobre isso no campo de biografia do cineclube.">?</button>
-          </label>
-          <label class="linha"><input type="radio" name="arquivos" value="sim" <?php echo $arquivos == "sim" ? "checked" : "" ?> > Sim
-          </label>
-          <label class="linha"><input type="radio" name="arquivos" value="nao" <?php echo $arquivos == "nao" ? "checked" : "" ?> > Não
-          </label>
-        </div>
-      </div>
+      </div>      
 
       <div class="row">
         <div class="col-md-12">
@@ -914,18 +920,8 @@
           ?>
           </div>
         </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-12">
-          <label for="tags">Insira Tags de Pesquisa<button type="button" class="infos" data-toggle="tooltip" data-placement="top" title="Escreva aqui todas as tags relacionadas ao seu cineclube, separando-as por vírgula.">?</button>
-          </label>
-          <input type="text" name="tags" id="tags" value="<?php  echo $tags?>"  tabindex="5" size="16" >
-        </div>
-      </div>
+      </div>     
       <!--  CINECLUBE -->
-
-
           <div class="loading"></div>
 
           <div class="hide message-success">
@@ -941,6 +937,12 @@
           <input type="hidden" name="action" value="form_form_relatorio" />
           <?php wp_nonce_field( 'form_form_relatorio' ); ?>
           
-		</form>
+		<?php } else { ?>
+      <div class="alert alert-warning">
+        <p>Não existem Sessões cadastradas que não tenham Relatório.</p>
+        <p>Você pode criar Sessões clicando <a href="cadastro-de-sessao">aqui</a>.</p>
+      </div>
+    <?php } ?>
+  </label>
 	</div><!-- .entry-content -->
 </article><!-- #post-## -->

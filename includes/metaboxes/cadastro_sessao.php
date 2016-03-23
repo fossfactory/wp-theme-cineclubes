@@ -164,16 +164,20 @@ function cadastro_sessao_register_meta_boxes( $meta_boxes )
                     'name'  => 'Direção '. $i,
                     'desc'  => '',
                     'id'    => $prefix . 'direcao'. $i,
-                    'type'  => 'text',   
+                    'type'  => 'text'                    
                 ),
-
+                array(
+                    'name'  => 'Duração  '. $i,
+                    'desc'  => '',
+                    'id'    => $prefix . 'duracao'. $i,
+                    'type'  => 'text'                    
+                ),
                 array(
                     'name'  => 'Ano '. $i,
                     'desc'  => '',
                     'id'    => $prefix . 'ano'. $i,
                     'type'  => 'text',   
                 ),
-
                 array(
                     'name'  => 'País '. $i,
                     'desc'  => '',
